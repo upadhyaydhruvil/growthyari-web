@@ -27,10 +27,7 @@ const mono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.domain),
-  title: {
-    default: `${site.tagline} | ${site.name}`,
-    template: site.titleTemplate,
-  },
+  title: "GrowthYari",
   description: site.defaultDescription,
   applicationName: site.name,
   keywords: [
