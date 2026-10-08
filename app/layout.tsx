@@ -31,9 +31,9 @@ export const metadata: Metadata = {
   title: "GrowthYari",
 
   icons: {
-    icon: "/icon.png",
-    apple: "/apple-icon.png",
-  },
+  icon: "/icon.png",
+  apple: "/apple-icon.png",
+},
 
   description: site.defaultDescription,
   applicationName: site.name,
