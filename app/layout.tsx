@@ -34,6 +34,13 @@ export const metadata: Metadata = {
     default: site.title,
     template: site.titleTemplate,
   },
+  // Explicit rather than inferred from the file convention — `app/icon.png`
+  // ships the PNG and `app/favicon.ico` the ICO, and browsers pick between
+  // them inconsistently when the list is generated.
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
+  },
   description: site.defaultDescription,
   applicationName: site.name,
   keywords: [
