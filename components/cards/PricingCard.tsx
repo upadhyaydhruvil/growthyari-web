@@ -118,11 +118,15 @@ export function PricingCard({
         ))}
       </ul>
 
-      <div className="mt-8">
-        {/* Pay routes to the payment page, not contact. The page itself states
-            that payment is not open yet, so the label is deliberately literal. */}
+<div className="mt-8">
+        {/*
+          * Routes to the application form, not checkout. This button used to
+          * go straight to /payment even though the process on the same site
+          * said Apply → Career Assessment → Selection. Payment is arranged
+          * after selection; there is no path to it from here.
+          */}
         <ButtonLink
-          href={`/payment?program=${program.slug}`}
+          href={`/apply?program=${program.slug}`}
           variant={featured ? "solid" : "outline"}
           size="lg"
           className="w-full"
@@ -135,7 +139,7 @@ export function PricingCard({
             featured ? "text-muted" : "text-muted",
           )}
         >
-          Applications open · {program.duration.toLowerCase()}
+          {program.price.total} all-in · no payment until after selection
         </p>
       </div>
     </article>

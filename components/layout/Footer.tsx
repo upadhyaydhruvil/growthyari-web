@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { navLinks, site } from "@/data/site";
+import { legalLinks } from "@/data/legal";
 import { programs } from "@/data/programs";
 
 /**
@@ -80,9 +81,18 @@ export function Footer() {
           <p className="text-[13px] text-muted">
             © {year} {site.name}. All rights reserved.
           </p>
-          <p className="text-[13px] text-muted">
-            Privacy policy and terms are not published yet.
-          </p>
+
+          <nav aria-label="Legal" className="flex flex-wrap items-center gap-x-5 gap-y-2">
+            {legalLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-[13px] text-muted transition-colors duration-200 hover:text-neon-text"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
         </div>
       </div>
     </footer>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Check, FileText, Mic, Presentation } from "lucide-react";
+import { Check } from "lucide-react";
 import { frameworkSteps } from "@/data/framework";
 
 /**
@@ -12,33 +12,16 @@ import { frameworkSteps } from "@/data/framework";
  *
  *  1. The whole panel tilts toward the cursor, up to 5 degrees.
  *  2. A cursor-tracking wash follows the pointer across the card face.
- *  3. The three stage cards fan apart on hover instead of stacking flat.
+ *  3. The list of loop steps fans apart on hover instead of stacking flat.
  *
  * The stage rail advances on its own timer as well, so the panel is alive for
  * a visitor who never moves the mouse. Everything stops under
  * `prefers-reduced-motion`.
+ *
+ * The five rows are `frameworkSteps` — the same array the homepage section
+ * reads. A panel-local card list used to sit here ending in "Proof", so one
+ * screen showed two different loops.
  */
-
-const CARDS = [
-  {
-    icon: Mic,
-    title: "Practice",
-    note: "Recorded and replayed until it lands",
-    meta: "Weekly drill",
-  },
-  {
-    icon: Presentation,
-    title: "Feedback",
-    note: "A coach reviews the actual recording",
-    meta: "Personal review",
-  },
-  {
-    icon: FileText,
-    title: "Proof",
-    note: "An artefact a recruiter can open",
-    meta: "Shareable",
-  },
-] as const;
 
 const ROTATE_MS = 3200;
 
@@ -106,21 +89,19 @@ export function HeroShowcase({ facts }: { facts: readonly string[] }) {
                 aria-hidden="true"
                 className="size-1.5 animate-pulse-dot rounded-full bg-card-neon-text"
               />
-              Live
+              Live sessions
             </span>
           </div>
 
-          <p className="mt-3 text-[26px] leading-tight font-semibold tracking-[-0.03em] text-card-ink sm:text-[30px]">
-            {frameworkSteps[stage].title}
-          </p>
-          <p className="mt-2 text-[14px] leading-6 text-card-body">
-            {frameworkSteps[stage].blurb}
-          </p>
-
+          {/*
+            Decorative progress only. Each step's name and blurb are rendered
+            once, in the list below — this used to sit above them as a large
+            animated heading, so the loop was announced twice and the animated
+            copy was the one crawlers and readers caught mid-transition.
+          */}
           <div
-            className="mt-6 flex items-center gap-1.5"
-            role="img"
-            aria-label={`Stage ${stage + 1} of ${frameworkSteps.length}: ${frameworkSteps[stage].title}`}
+            aria-hidden="true"
+            className="mt-5 flex items-center gap-1.5"
           >
             {frameworkSteps.map((step, index) => (
               <span
@@ -133,39 +114,53 @@ export function HeroShowcase({ facts }: { facts: readonly string[] }) {
           </div>
         </div>
 
-        <div className="relative mt-6 grid gap-2.5 sm:gap-3">
-          {CARDS.map((card, index) => (
-            <div
-              key={card.title}
-              className="group/card flex items-center gap-3.5 rounded-xl border border-card-line bg-card-soft px-4 py-3.5 transition-[transform,box-shadow,border-color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]"
+        <ol className="relative mt-5 grid gap-2 sm:gap-2.5">
+          {frameworkSteps.map((step, index) => (
+            <li
+              key={step.number}
+              aria-current={index === stage ? "step" : undefined}
+              className="group/card flex items-start gap-3.5 rounded-xl border px-4 py-3 transition-[transform,box-shadow,border-color,background-color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]"
               style={
                 reduce || !hovered
                   ? undefined
                   : {
-                      transform: `translateX(${(index - 1) * 14}px)`,
+                      transform: `translateX(${(index - (frameworkSteps.length - 1) / 2) * 8}px)`,
                     }
               }
             >
               <span
                 aria-hidden="true"
-                className="grid size-9 shrink-0 place-items-center rounded-lg border border-card-line bg-card text-card-neon-text transition-colors duration-300 group-hover/card:border-neon/30 group-hover/card:bg-neon/8"
+                className={
+                  index === stage
+                    ? "grid size-8 shrink-0 place-items-center rounded-lg border border-neon/30 bg-neon/8 text-card-neon-text"
+                    : "grid size-8 shrink-0 place-items-center rounded-lg border border-card-line bg-card text-card-muted"
+                }
               >
-                <card.icon className="size-4" strokeWidth={1.9} />
+                <step.icon className="size-4" strokeWidth={1.9} />
               </span>
 
               <div className="min-w-0 flex-1">
-                <p className="text-[14.5px] font-semibold tracking-[-0.01em] text-card-ink">
-                  {card.title}
+                <p className="flex items-baseline gap-2">
+                  <span className="font-mono text-[10px] tracking-[0.1em] text-card-muted">
+                    {step.number}
+                  </span>
+                  <span
+                    className={
+                      index === stage
+                        ? "text-[14.5px] font-semibold tracking-[-0.01em] text-card-ink"
+                        : "text-[14.5px] font-semibold tracking-[-0.01em] text-card-ink-2"
+                    }
+                  >
+                    {step.title}
+                  </span>
                 </p>
-                <p className="truncate text-[12.5px] text-card-muted">{card.note}</p>
+                <p className="mt-0.5 text-[12.5px] leading-5 text-card-muted">
+                  {step.blurb}
+                </p>
               </div>
-
-              <span className="shrink-0 font-mono text-[10px] tracking-[0.1em] text-card-muted uppercase">
-                {card.meta}
-              </span>
-            </div>
+            </li>
           ))}
-        </div>
+        </ol>
 
         <div className="relative mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-card-line pt-5">
           {facts.map((item) => (

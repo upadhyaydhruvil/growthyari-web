@@ -15,15 +15,22 @@ export interface Audience {
 export const audiencesEyebrow = "Who it's for";
 export const audiencesTitle = "Built for the people who want to move.";
 export const audiencesIntro =
-  "One program, four kinds of momentum. Choose the outcome that matches where you are.";
+  "Built first for students, freshers and career switchers. Working professionals and entrepreneurs take the same material — the difference is what you point it at.";
 
 export const audiences: Audience[] = [
   {
-    label: "Students & graduates",
+    label: "Students & freshers",
     title: "Launch your career with practical skills.",
     description:
       "Move beyond your degree with communication, sales and business fundamentals that hiring managers actually test for.",
     icon: GraduationCap,
+  },
+  {
+    label: "Career switchers",
+    title: "Build for high-growth roles.",
+    description:
+      "Transition into Sales, BD, Partnerships, CS or GTM roles with real skills and a portfolio to prove it.",
+    icon: Repeat2,
   },
   {
     label: "Professionals",
@@ -38,12 +45,5 @@ export const audiences: Audience[] = [
     description:
       "Sell better, close faster and communicate with the clarity your product and team deserve.",
     icon: Rocket,
-  },
-  {
-    label: "Career switchers",
-    title: "Build for high-growth roles.",
-    description:
-      "Transition into Sales, BD, Partnerships, CS or GTM roles with real skills and a portfolio to prove it.",
-    icon: Repeat2,
   },
 ];

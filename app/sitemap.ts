@@ -9,8 +9,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: site.domain, lastModified: now, changeFrequency: "monthly", priority: 1 },
     { url: `${site.domain}/programs`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${site.domain}/workshops`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${site.domain}/apply`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${site.domain}/about`, lastModified: now, changeFrequency: "yearly", priority: 0.5 },
     { url: `${site.domain}/contact`, lastModified: now, changeFrequency: "yearly", priority: 0.6 },
+    // Legal pages exist so buyers can read them before paying.
+    { url: `${site.domain}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${site.domain}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${site.domain}/refund`, lastModified: now, changeFrequency: "yearly", priority: 0.4 },
   ];
 
   for (const program of programs) {

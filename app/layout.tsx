@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, Inter, Inter_Tight } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
+import { JsonLd, organizationJsonLd } from "@/components/seo/JsonLd";
 import { site } from "@/data/site";
 import "./globals.css";
 
@@ -28,19 +29,21 @@ const mono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(site.domain),
   title: {
-    default: `${site.tagline} | ${site.name}`,
+    // The exact home-page title. `template` below only applies to nested
+    // segments, so this string ships unmodified.
+    default: site.title,
     template: site.titleTemplate,
   },
   description: site.defaultDescription,
   applicationName: site.name,
   keywords: [
     "GrowthYari",
-    "career skills",
-    "sales training",
-    "communication skills",
-    "proof of work",
+    "sales coaching India",
+    "communication skills training",
+    "proof of work portfolio",
     "career coaching India",
-    "career readiness",
+    "interview preparation",
+    "sales training students",
   ],
   authors: [{ name: site.name, url: site.domain }],
   creator: site.name,
@@ -51,12 +54,12 @@ export const metadata: Metadata = {
     siteName: site.name,
     locale: "en_IN",
     url: site.domain,
-    title: `${site.tagline} | ${site.name}`,
+    title: site.title,
     description: site.defaultDescription,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.tagline} | ${site.name}`,
+    title: site.title,
     description: site.defaultDescription,
   },
   robots: { index: true, follow: true },
@@ -90,6 +93,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           [class*="page-enter"]{opacity:1!important;transform:none!important}`}</style>
       </noscript>
       <body className="flex min-h-full flex-col bg-surface">
+        <JsonLd data={organizationJsonLd()} />
         <Navbar />
         <main id="main" className="flex-1">
           {children}

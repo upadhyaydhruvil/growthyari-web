@@ -11,12 +11,44 @@
  */
 
 export interface ProgramPrice {
-  /** Display string, e.g. "₹19,999". */
+  /** Display string before tax, e.g. "₹19,999". */
   amount: string;
   /** Numeric value in INR, for sorting and future checkout wiring. */
   value: number;
-  /** e.g. "+ 18% GST" */
+  /** Tax rate applied. Shown next to `amount`, never buried. */
+  gstRate: number;
+  /** The GST charged on `value`, rounded to the rupee. */
+  gst: string;
+  /** What the learner actually pays: `value` plus `gst`. */
+  total: string;
+  /**
+   * The line rendered under `amount`, e.g. "+ 18% GST (₹23,599 total)".
+   *
+   * "₹19,999 + 18% GST" on its own read as "from ₹19,999" — the total was
+   * nowhere on the card, so a buyer had to do the arithmetic to find out what
+   * they would actually be charged.
+   */
   note: string;
+}
+
+/** ₹19,999 at 18% is ₹23,598.82 — invoices round to the rupee. */
+const price = (value: number): ProgramPrice => {
+  const gstRate = 18;
+  const gstAmount = Math.round(value * (gstRate / 100));
+  const total = value + gstAmount;
+  return {
+    amount: toInr(value),
+    value,
+    gstRate,
+    gst: toInr(gstAmount),
+    total: toInr(total),
+    note: `+ ${gstRate}% GST (${toInr(total)} total)`,
+  };
+};
+
+/** Indian digit grouping: 19999 -> "19,999", 117999 -> "1,17,999". */
+function toInr(value: number): string {
+  return `₹${value.toLocaleString("en-IN")}`;
 }
 
 export interface CurriculumItem {
@@ -58,18 +90,19 @@ export const programs: Program[] = [
     summary:
       "Live small-cohort sessions with a working coach, weekly practice, and a proof-of-work portfolio you can show an employer.",
     description:
-      "The Group Cohort is GrowthYari's core track. You learn alongside a maximum of five other learners in live online sessions, practise every week, and leave with a portfolio of work that a recruiter or client can actually verify. It is built for students, professionals, entrepreneurs and career switchers who want practical skills and measurable career growth.",
+      "The Group Cohort is GrowthYari's core track. You learn alongside a maximum of five other learners in live online sessions, practise every week, and leave with a portfolio of work that a recruiter or client can actually verify. It is built first for students, freshers and career switchers, and working professionals and entrepreneurs run through the same material.",
     duration: "Up to 8 weeks",
     cohortSize: "Max 5 learners per cohort",
     format: "Live online sessions",
     weeklyTime: "Around 5–8 hours a week",
     audience: [
       "Students & graduates",
+      "Freshers",
+      "Career switchers",
       "Working professionals",
       "Entrepreneurs",
-      "Career switchers",
     ],
-    price: { amount: "₹19,999", value: 19999, note: "+ 18% GST" },
+    price: price(19999),
     features: [
       "Live small-cohort sessions",
       "Weekly practice activities",
@@ -105,7 +138,8 @@ export const programs: Program[] = [
       {
         stage: "opportunity",
         title: "Career Opportunities",
-        description: "Interview readiness and warm introductions.",
+        description:
+          "Interview readiness, plus introductions where there is a genuine fit.",
       },
     ],
     proofOfWork: [
@@ -130,24 +164,24 @@ export const programs: Program[] = [
   {
     slug: "1-1-accelerator",
     name: "1:1 Accelerator",
-    eyebrow: "Fully personalized coaching",
+    eyebrow: "Fully personalised coaching",
     summary:
-      "Everything in the Group Cohort, plus personalized coaching, weekly 1:1 reviews and a custom learning roadmap.",
+      "Everything in the Group Cohort, plus personalised coaching, weekly 1:1 reviews and a custom learning roadmap.",
     description:
-      "The 1:1 Accelerator is the fully personalized version of the GrowthYari program. It includes everything in the Group Cohort and adds weekly one-to-one reviews, a custom learning roadmap built around your goals, and priority support. Choose it when you need the pace, the structure or the accountability to be shaped around you specifically.",
+      "The 1:1 Accelerator is the fully personalised version of the GrowthYari program. It includes everything in the Group Cohort and adds weekly one-to-one reviews, a custom learning roadmap built around your goals, and priority support. Choose it when you need the pace, the structure or the accountability to be shaped around you specifically.",
     duration: "Up to 8 weeks",
     cohortSize: "One-to-one",
-    format: "Live online sessions, personalized",
+    format: "Live online sessions, personalised",
     weeklyTime: "Around 5–8 hours a week",
     audience: [
       "Professionals accelerating a promotion",
       "Entrepreneurs scaling sales",
       "Career switchers entering a new function",
     ],
-    price: { amount: "₹1,17,999", value: 117999, note: "+ 18% GST" },
+    price: price(117999),
     features: [
       "Everything in Group Program",
-      "Personalized coaching",
+      "Personalised coaching",
       "Weekly 1:1 reviews",
       "Custom learning roadmap",
       "Priority support",
@@ -161,9 +195,9 @@ export const programs: Program[] = [
       },
       {
         stage: "training",
-        title: "Personalized Coaching",
+        title: "Personalised Coaching",
         description:
-          "Fully personalized live sessions with a working coach, paced to your starting point.",
+          "Fully personalised live sessions with a working coach, paced to your starting point.",
       },
       {
         stage: "practice",
@@ -181,7 +215,7 @@ export const programs: Program[] = [
         stage: "opportunity",
         title: "Priority Support",
         description:
-          "Priority support through interview readiness and warm introductions.",
+          "Priority support through interview readiness, plus introductions where there is a genuine fit.",
       },
     ],
     proofOfWork: [

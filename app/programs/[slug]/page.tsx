@@ -11,7 +11,8 @@ import { PricingCard } from "@/components/cards/PricingCard";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { cohort, primaryCta } from "@/data/site";
+import { cohort } from "@/data/site";
+import { cohortBadge } from "@/data/dates";
 import { faqs } from "@/data/faqs";
 import { getProgram, getRelatedPrograms, programs } from "@/data/programs";
 import { pageMetadata } from "@/lib/seo";
@@ -57,7 +58,7 @@ export default async function ProgramDetailPage({ params }: PageProps<"/programs
     <>
       <PageHero
         eyebrow="Program"
-        badge={`New cohort starts ${cohort.startsOn}`}
+        badge={cohortBadge()}
         title={program.name}
         intro={program.description}
         aside={
@@ -73,12 +74,12 @@ export default async function ProgramDetailPage({ params }: PageProps<"/programs
               {program.badge ? <Badge tone="lime">{program.badge}</Badge> : null}
             </div>
 
-            <ButtonLink href={primaryCta.href} size="lg" className="mt-6 w-full">
+            <ButtonLink href={`/apply?program=${program.slug}`} size="lg" className="mt-6 w-full">
               {program.ctaLabel}
             </ButtonLink>
 
             <p className="mt-3 text-center text-[12.5px] text-muted">
-              Applications open · Seats limited to {cohort.seatsPerCohort} per cohort
+              {program.price.total} all-in · seats limited to {cohort.seatsPerCohort} per cohort
             </p>
           </div>
         }
@@ -213,9 +214,9 @@ export default async function ProgramDetailPage({ params }: PageProps<"/programs
               </ol>
 
               <p className="mt-5 text-[13px] text-muted">
-                Week-by-week module titles are not published. The stages above are the
-                structure GrowthYari commits to — your 1:1 Career Assessment call sets
-                the sequence within them.
+                The week-by-week outline sits on the home page. The five stages above
+                are the structure GrowthYari commits to — your 1:1 Career Assessment
+                call sets the sequence within them.
               </p>
             </div>
           </div>

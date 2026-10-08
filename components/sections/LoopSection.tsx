@@ -1,3 +1,4 @@
+import { Repeat } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 import { LoopDiagram } from "@/components/ui/visuals/LoopDiagram";
@@ -49,6 +50,12 @@ export function LoopSection() {
                   <span className="ml-auto hidden text-[13px] text-muted sm:block">
                     {step.blurb}
                   </span>
+                  {step.closesLoop ? (
+                    <span className="flex items-center gap-1.5 font-mono text-[10px] tracking-[0.16em] text-lime-text uppercase">
+                      <Repeat className="size-3" aria-hidden="true" />
+                      back to learning
+                    </span>
+                  ) : null}
                 </Reveal>
               ))}
             </ol>

@@ -35,10 +35,10 @@ export default async function PaymentPage({
   return (
     <>
       <PageHero
-        eyebrow="Checkout"
-        title="Payment"
-        badge="Coming soon"
-        intro="Online payment is not open yet. This page is the shell for the flow, so nothing is lost when the gateway goes live."
+        eyebrow="Step 4 of 8"
+        title="Confirm your seat"
+        badge="After selection"
+        intro="Payment sits after the Career Assessment and selection, not before them. Nothing on this page requests card or UPI details until a seat has been confirmed with you."
       />
 
       <section className="section-pad relative overflow-hidden bg-canvas">
@@ -61,7 +61,7 @@ export default async function PaymentPage({
                 <div className="relative">
                   <div className="flex items-center gap-2.5 border-b border-line pb-5">
                     <span className="inline-flex size-2 rounded-full bg-amber animate-pulse-dot" />
-                    <p className="label-xs text-amber-text">Awaiting payment gateway</p>
+                    <p className="label-xs text-amber-text">Payment gateway not connected</p>
                   </div>
 
                   <h2 className="mt-6 text-[22px] font-semibold tracking-[-0.025em] text-ink">
@@ -167,18 +167,18 @@ export default async function PaymentPage({
                 </ul>
 
                 <div className="mt-7 flex flex-col gap-3">
-                  <ButtonLink href="/contact" size="lg" className="w-full">
+                  <ButtonLink href="/apply" size="lg" className="w-full">
                     <Mail className="size-4" aria-hidden="true" />
-                    Request a Career Assessment Call
+                    Apply for the next cohort
                   </ButtonLink>
-                  <ButtonLink href="/programs" size="lg" variant="outline" className="w-full">
-                    Compare both programs
+                  <ButtonLink href="/contact" size="lg" variant="outline" className="w-full">
+                    Ask a question first
                   </ButtonLink>
                 </div>
 
                 <p className="mt-5 flex items-start gap-2 text-[13px] leading-6 text-muted">
                   <Clock className="mt-0.5 size-3.5 shrink-0" aria-hidden="true" />
-                  Prefer to talk first? The contact page is the fastest route.
+                  Applications come before payment, not the other way round.
                 </p>
               </div>
 

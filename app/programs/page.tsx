@@ -12,12 +12,13 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { JourneyRail } from "@/components/ui/visuals/JourneyRail";
 import { IllustrationBand } from "@/components/sections/IllustrationBand";
 import { cohort } from "@/data/site";
+import { cohortBadge, cohortStartLine } from "@/data/dates";
 import { programs } from "@/data/programs";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata(
   "Programs",
-  "GrowthYari runs two programs: a small-cohort Group Cohort of up to five learners and a fully personalized 1:1 Accelerator. Both run for up to 8 weeks of live online coaching and end in a proof-of-work portfolio.",
+  "GrowthYari runs two programs: a small-cohort Group Cohort of up to five learners and a fully personalised 1:1 Accelerator. Both run for up to 8 weeks of live online coaching and end in a proof-of-work portfolio.",
   "/programs",
 );
 
@@ -29,7 +30,7 @@ export default function ProgramsPage() {
     <>
       <PageHero
         eyebrow="Programs"
-        badge={`New cohort starts ${cohort.startsOn}`}
+        badge={cohortBadge()}
         title={
           <>
             One program.{" "}
@@ -82,7 +83,7 @@ export default function ProgramsPage() {
             <SectionHeading
               eyebrow="Pricing"
               title="What each track costs."
-              intro={`Next batch begins ${cohort.startsOn}. Seats are limited to ${cohort.seatsPerCohort} per cohort. Prices exclude GST.`}
+              intro={`${cohortStartLine()} Seats are limited to ${cohort.seatsPerCohort} per cohort. Totals below include 18% GST.`}
               className="max-w-xl"
             />
           </div>
@@ -103,8 +104,8 @@ export default function ProgramsPage() {
         <div className="container-page">
           <SectionHeading
             eyebrow="How to join"
-            title="From enquiry to first session."
-            intro="The same four steps apply to both tracks."
+            title="From application to first session."
+            intro="The same five steps apply to both tracks. Payment is step four, never step one."
             align="center"
           />
 
@@ -112,22 +113,27 @@ export default function ProgramsPage() {
             <JourneyRail
               steps={[
                 {
-                  icon: Send,
-                  label: "Enquiry",
-                  note: "Tell us your background and what you want to change.",
+                  icon: ClipboardCheck,
+                  label: "Apply",
+                  note: "A short form. No payment and no card details.",
                 },
                 {
-                  icon: ClipboardCheck,
-                  label: "Assessment",
-                  note: "A 1:1 Career Assessment call maps where you actually are.",
+                  icon: Send,
+                  label: "Career Assessment",
+                  note: "A 1:1 call maps where you actually are and what you want.",
                 },
                 {
                   icon: UserCheck,
                   label: "Selection",
-                  note: "We confirm the track and a seat in the next cohort.",
+                  note: "We confirm the track and hold a seat in the next cohort.",
                 },
                 {
                   icon: Rocket,
+                  label: "Confirm & pay",
+                  note: "Only now — after both sides agree it is a fit.",
+                },
+                {
+                  icon: Clock,
                   label: "First session",
                   note: "Live training starts, with weekly practice and feedback.",
                 },

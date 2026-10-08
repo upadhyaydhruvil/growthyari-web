@@ -34,7 +34,7 @@ export const comparisonColumns: ComparisonColumn[] = [
       "Live coaching",
       "Small cohorts",
       "Weekly practice",
-      "Personalized feedback",
+      "Personalised feedback",
       "Interview readiness",
       "Real execution",
     ],

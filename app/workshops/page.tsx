@@ -6,6 +6,7 @@ import { FinalCta } from "@/components/sections/FinalCta";
 import { IllustrationBand } from "@/components/sections/IllustrationBand";
 import { PageHero } from "@/components/sections/PageHero";
 import { DemoDataNotice } from "@/components/ui/DemoDataNotice";
+import { ButtonLink } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import {
@@ -56,7 +57,7 @@ export default function WorkshopsPage() {
 
       <section className="section-pad bg-surface">
         <div className="container-page">
-          {hasDemoWorkshops ? (
+          {hasDemoWorkshops && upcomingWorkshops.length > 0 ? (
             <div className="mb-11">
               <DemoDataNotice />
             </div>
@@ -84,9 +85,12 @@ export default function WorkshopsPage() {
                 No sessions scheduled yet
               </h2>
               <p className="mx-auto mt-3 max-w-md text-[14.5px] leading-7 text-body">
-                New workshop dates are published as cohorts are confirmed. Send us an
-                enquiry and we&apos;ll let you know when the next one opens.
+                New workshop dates are published as cohorts are confirmed. Tell us what
+                you want fixed and we&apos;ll let you know when the next one opens.
               </p>
+              <div className="mt-6 flex justify-center">
+                <ButtonLink href="/contact">Tell us what you need</ButtonLink>
+              </div>
             </div>
           )}
         </div>
@@ -121,27 +125,21 @@ export default function WorkshopsPage() {
         </div>
       </section>
 
-      <section className="section-pad bg-surface">
-        <div className="container-page">
-          <SectionHeading eyebrow="Past workshops" title="Already been run." />
-
-          {pastWorkshops.length > 0 ? (
+      {/* Archive. Hidden entirely when there is nothing genuine to show — an
+          empty "Already been run" heading over placeholder records would claim
+          sessions ran that never did. */}
+      {pastWorkshops.length > 0 ? (
+        <section className="section-pad bg-surface">
+          <div className="container-page">
+            <SectionHeading eyebrow="Past workshops" title="Already been run." />
             <div className="mt-11 grid gap-6 lg:grid-cols-2">
               {pastWorkshops.map((workshop) => (
                 <WorkshopCard key={workshop.id} workshop={workshop} className="h-full" />
               ))}
             </div>
-          ) : (
-            <div className="mt-8 rounded-lg border border-dashed border-line-strong bg-surface p-8">
-              <p className="max-w-xl text-[14.5px] leading-7 text-body">
-                GrowthYari has not published a past-workshop archive yet. Completed
-                sessions will be listed here with their recordings and notes, so anyone
-                who missed a date can still work through the material.
-              </p>
-            </div>
-          )}
-        </div>
-      </section>
+          </div>
+        </section>
+      ) : null}
 
       <IllustrationBand
         page="/workshops"

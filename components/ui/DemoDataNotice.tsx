@@ -27,9 +27,9 @@ export function DemoDataNotice({
         <div className="mt-1.5 text-[14px] leading-6 text-lime-text/85">
           {children ?? (
             <p>
-              GrowthYari has not published a workshop schedule yet. The sessions below
-              are placeholder content showing the layout — dates, times and topics are
-              examples, not confirmed events.
+              The sessions listed are examples of the format rather than confirmed
+              events. New dates are published as cohorts are scheduled, so treat the
+              topics and timings as a guide.
             </p>
           )}
         </div>

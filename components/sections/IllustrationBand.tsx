@@ -54,7 +54,7 @@ export function IllustrationBand({
 
         <p className="mt-8 max-w-2xl text-[13px] leading-6 text-muted">
           {note ??
-            "Illustrations of the themes the curriculum covers, not screenshots of shipped features. growthyari.com publishes no student results."}
+            "Illustrative example of the format, not student work."}
         </p>
       </div>
     </section>

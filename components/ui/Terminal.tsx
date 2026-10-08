@@ -17,7 +17,7 @@ const LINES = [
   { prompt: false, text: "recording cold call … done (04:12)" },
   { prompt: false, text: "coaching note: strong open, weak close" },
   { prompt: true, text: "growthyari build --proof portfolio" },
-  { prompt: false, text: "artifacts 3/3  ▸ portfolio ready" },
+  { prompt: false, text: "artefacts 3/3  ▸ portfolio ready" },
   { prompt: true, text: "growthyari ship" },
   { prompt: false, text: "status: VERIFIED ✓" },
 ] as const;

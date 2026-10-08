@@ -1,6 +1,5 @@
 import { ArrowRight, Check, Clock, Radio, UserRound } from "lucide-react";
-import type { Workshop } from "@/data/workshops";
-import { primaryCta } from "@/data/site";
+import { statusOf, type Workshop } from "@/data/workshops";
 import { ButtonLink } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
 
@@ -28,7 +27,7 @@ export function WorkshopCard({
   className?: string;
 }) {
   const { day, month } = formatDate(workshop.date);
-  const past = workshop.status === "past";
+  const past = statusOf(workshop) === "past";
   const seatsLeft =
     workshop.seats !== null && workshop.seatsTaken !== null
       ? Math.max(workshop.seats - workshop.seatsTaken, 0)
@@ -123,7 +122,13 @@ export function WorkshopCard({
               {workshop.price}
             </span>
           ) : (
-            <span className="text-[13px] text-muted">Price to be announced</span>
+            /*
+              * Not "Price to be announced" — that sat next to a Register
+              * button and read like a dead end. State when the number lands.
+              */
+            <span className="text-[13px] text-muted">
+              Price published with the date
+            </span>
           )}
           {seatsLeft !== null ? (
             <span className="text-[13px] text-muted">
@@ -169,7 +174,11 @@ export function WorkshopCard({
             Completed
           </span>
         ) : (
-          <ButtonLink href={primaryCta.href} size="sm" variant="outline">
+          <ButtonLink
+            href={`/apply?workshop=${workshop.id}`}
+            size="sm"
+            variant="outline"
+          >
             Register
             <ArrowRight className="size-3.5" aria-hidden="true" />
           </ButtonLink>
