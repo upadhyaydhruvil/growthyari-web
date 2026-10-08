@@ -27,7 +27,14 @@ const mono = IBM_Plex_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.domain),
+
   title: "GrowthYari",
+
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
+  },
+
   description: site.defaultDescription,
   applicationName: site.name,
   keywords: [
