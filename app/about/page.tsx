@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import { ArrowRight, CircleHelp } from "lucide-react";
+import { CircleHelp } from "lucide-react";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { AudiencesSection } from "@/components/sections/AudiencesSection";
 import { IllustrationBand } from "@/components/sections/IllustrationBand";
 import { PageHero } from "@/components/sections/PageHero";
-import { ButtonLink } from "@/components/ui/Button";
 import { ComparisonSection } from "@/components/sections/ComparisonSection";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -19,13 +18,14 @@ import {
   aboutThesisTitle,
   aboutTitle,
   aboutValues,
+  unknownFacts,
 } from "@/data/about";
 import { frameworkSteps } from "@/data/framework";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata(
   "About",
-  "Live, small-cohort coaching in sales and communication for students, freshers and career switchers — practise weekly, get personalised feedback, and build a proof-of-work portfolio.",
+  "GrowthYari is a professional growth accelerator: live coaching, practical learning, proof-of-work and personalized feedback for students, professionals, entrepreneurs and business owners.",
   "/about",
 );
 
@@ -165,23 +165,28 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Honest gap — written for a reader, not for a developer. */}
+      {/* Honest gap */}
       <section className="section-pad bg-surface">
         <div className="container-page">
           <div className="mx-auto max-w-2xl rounded-lg border border-line bg-surface p-7 sm:p-9">
             <CircleHelp className="size-5 text-muted" aria-hidden="true" />
             <h2 className="mt-4 text-[19px] font-semibold tracking-[-0.025em] text-ink">
-              Still deciding?
+              Details we have not published
             </h2>
             <p className="mt-3 text-[14.5px] leading-7 text-body">
-              Some details are not published on this site — founders&apos; backgrounds,
-              registration information, or numbers we cannot yet stand behind. If any
-              of them matter to your decision, ask and we will answer directly.
+              These have not been invented for this page. If you need any of them for a
+              decision, ask directly and we will tell you.
             </p>
-            <ButtonLink href="/contact" size="sm" variant="outline" className="mt-6">
-              Ask us
-              <ArrowRight className="size-4" aria-hidden="true" />
-            </ButtonLink>
+            <ul className="mt-5 flex flex-wrap gap-2">
+              {unknownFacts.map((fact) => (
+                <li
+                  key={fact}
+                  className="rounded-full border border-dashed border-line-strong px-3 py-1.5 text-[12.5px] text-muted"
+                >
+                  {fact}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>

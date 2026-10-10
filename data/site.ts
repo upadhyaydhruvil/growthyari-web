@@ -7,40 +7,21 @@
  * invented — see `data/contact.ts`.
  */
 
-/** The audience we lead with. Secondary audiences live in `secondaryAudience`. */
-export const primaryAudience = "students, freshers and career switchers";
-
 export const site = {
   name: "GrowthYari",
   descriptor: "Professional Growth Accelerator",
   domain: "https://growthyari.com",
   tagline: "Build the skills that create better careers and stronger businesses.",
-
-  /**
-   * The <title> on the home page, exactly as it should appear in results.
-   * Subpages use `titleTemplate`, which appends the brand.
-   */
-  title: "GrowthYari | Sales & Communication Coaching with a Proof-of-Work Portfolio",
-
-  /** Used for nested pages: "%s | GrowthYari". */
+  /** Used in <title> across every page. */
   titleTemplate: "%s | GrowthYari",
-
-  /** 137 characters — inside the 155 a results page will show. */
   defaultDescription:
-    "Live small-cohort coaching in sales and communication. Practise weekly, get personal feedback, and build a portfolio recruiters can verify.",
-
-  /** Shorter form for cards and the footer blurb. */
-  shortDescription:
-    "Live, small-cohort coaching in sales and communication. Practise weekly, get personal feedback, and build a portfolio recruiters can verify.",
+    "GrowthYari helps students, professionals, entrepreneurs and business owners master sales, communication and business execution through live coaching, practical learning, proof-of-work and personalized feedback.",
 } as const;
 
-/**
- * Next cohort copy.
- *
- * The date itself lives in `data/dates.ts` — this file only holds the parts
- * that never go stale.
- */
+/** Next cohort copy, verbatim from the current homepage. */
 export const cohort = {
+  badge: "New cohort starts 2 August",
+  startsOn: "2 August",
   seatsPerCohort: 5,
   cadence: "New batch monthly",
 } as const;
@@ -63,17 +44,14 @@ export const trustStrip = [
 
 /**
  * The single primary conversion action across the site.
- *
- * Applications are a form, not a checkout. Payment comes after the Career
- * Assessment and selection — see `data/process.ts`, steps 1–3.
+ * The current website routes applications through a 4-step form.
  */
 export const primaryCta = {
-  label: "Apply for the next cohort",
-  href: "/apply",
+  label: "Apply for next cohort",
+  href: "/contact",
 } as const;
 
 export const secondaryCta = {
-  label: "See the 8-week program",
+  label: "Explore programs",
   href: "/programs",
 } as const;
-

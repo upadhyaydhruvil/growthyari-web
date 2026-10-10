@@ -1,29 +1,28 @@
 /**
  * Upcoming workshops.
  *
- * growthyari.com does not publish a workshop schedule, dates, mentors or
- * prices. The three records below are placeholders that keep the layout and
- * `WorkshopCard` exercised.
+ * ⚠️ growthyari.com does not currently publish any workshop schedule,
+ * dates, mentors or prices. The three entries below are PLACEHOLDER data
+ * used to demonstrate the layout and the `WorkshopCard` component.
  *
- * Dates are parsed from `date` — there is no separate hand-typed `dateLabel`,
- * because a label and a date that disagree is how a page ends up advertising
- * "2 August" in October. Status is derived too: a workshop is `past` the
- * moment its date passes, with no edit required.
+ * Every record carries `isDemo: true`. The Workshops page renders a
+ * visible banner whenever any demo record is present, and the banner
+ * disappears automatically once real records replace them.
  *
- * To go live: set real `date` values, real `price`, and `isDemo: false`.
- * Past records stay visible in the "Past workshops" archive but never in a
- * list, a badge or a CTA.
+ * To go live: replace the contents of `workshops` with real records and
+ * set `isDemo: false`. No component changes are required — dates, times,
+ * mentors, prices, capacity and the registration CTA are all optional.
  */
-
-import { formatLong, isPast } from "@/data/dates";
 
 export type WorkshopStatus = "upcoming" | "past";
 
 export interface Workshop {
   id: string;
   title: string;
-  /** ISO date (`YYYY-MM-DD`). Drives sorting, the <time> element and status. */
+  /** ISO date, used for sorting and for the <time> element. */
   date: string;
+  /** Human label. Shown as-is so the source of truth stays visible. */
+  dateLabel: string;
   time: string;
   duration: string;
   /** Left null when the current site has no named mentor. */
@@ -31,15 +30,11 @@ export interface Workshop {
   description: string;
   audience: string;
   outcomes: string[];
-  /**
-   * Display price. `null` renders the fallback in `WorkshopCard`, which
-   * states when the price lands rather than leaving a Register button
-   * sitting next to an unanswered question.
-   */
   price: string | null;
   seats: number | null;
   seatsTaken: number | null;
   format: string;
+  status: WorkshopStatus;
   isDemo: boolean;
 }
 
@@ -48,6 +43,7 @@ export const workshops: Workshop[] = [
     id: "demo-communication",
     title: "Say it so it lands: communication fundamentals",
     date: "2026-08-08",
+    dateLabel: "Placeholder date",
     time: "7:00 PM IST",
     duration: "60 minutes",
     mentor: null,
@@ -63,12 +59,14 @@ export const workshops: Workshop[] = [
     seats: null,
     seatsTaken: null,
     format: "Live online session",
+    status: "upcoming",
     isDemo: true,
   },
   {
     id: "demo-cold-calls",
     title: "Your first ten cold calls",
     date: "2026-08-15",
+    dateLabel: "Placeholder date",
     time: "7:00 PM IST",
     duration: "60 minutes",
     mentor: null,
@@ -84,12 +82,14 @@ export const workshops: Workshop[] = [
     seats: null,
     seatsTaken: null,
     format: "Live online session",
+    status: "upcoming",
     isDemo: true,
   },
   {
     id: "demo-resume",
     title: "Fix your resume in one hour",
     date: "2026-08-22",
+    dateLabel: "Placeholder date",
     time: "7:00 PM IST",
     duration: "60 minutes",
     mentor: null,
@@ -105,39 +105,14 @@ export const workshops: Workshop[] = [
     seats: null,
     seatsTaken: null,
     format: "Live online session",
+    status: "upcoming",
     isDemo: true,
   },
 ];
 
-/** Status is derived from the date, never stored. */
-export const statusOf = (workshop: Workshop): WorkshopStatus =>
-  isPast(workshop.date) ? "past" : "upcoming";
+export const upcomingWorkshops = workshops.filter((w) => w.status === "upcoming");
+export const pastWorkshops = workshops.filter((w) => w.status === "past");
+export const hasDemoWorkshops = workshops.some((w) => w.isDemo);
 
-/** Long date label for a workshop, e.g. "8 August 2026". */
-export const labelOf = (workshop: Workshop): string => formatLong(workshop.date);
-
-/** Strictly future workshops, soonest first. Drives every list and badge. */
-export const upcomingWorkshops = workshops
-  .filter((workshop) => !isPast(workshop.date))
-  .sort((a, b) => a.date.localeCompare(b.date));
-
-/**
- * Workshops whose date has passed. Archive only — never a CTA.
- *
- * Demo records are excluded as well as past ones. A placeholder dated
- * "8 August 2026" never actually ran, so listing it under a heading that says
- * "Already been run" would be a false claim, not an archive.
- */
-export const pastWorkshops = workshops
-  .filter((workshop) => isPast(workshop.date) && !workshop.isDemo)
-  .sort((a, b) => b.date.localeCompare(a.date));
-
-export const hasDemoWorkshops = workshops.some((workshop) => workshop.isDemo);
-
-/**
- * Only used for the nav "Workshops" counter.
- *
- * Counts future workshops only, so a badge cannot advertise a session that
- * has already happened. Zero hides the badge entirely.
- */
+/** Only used in the nav "Workshops" counter. */
 export const upcomingWorkshopCount = upcomingWorkshops.length;

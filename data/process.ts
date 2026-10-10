@@ -1,16 +1,11 @@
 /**
- * "How it works" — the path from application to opportunity.
- *
- * Payment sits at step 4, after the Career Assessment and Selection. Earlier
- * this file claimed Apply → Assessment → Selection while every program button
- * went straight to checkout, so the page contradicted itself. An application
- * is now a form, and money only moves once both sides have confirmed fit.
+ * "How it works" — the seven-step path from application to opportunity.
+ * Verbatim from growthyari.com.
  */
 
 import type { LucideIcon } from "lucide-react";
 import {
   ClipboardCheck,
-  CreditCard,
   MessagesSquare,
   PhoneCall,
   Presentation,
@@ -30,7 +25,7 @@ export const processSteps: ProcessStep[] = [
   {
     number: "01",
     title: "Apply",
-    description: "Share your goals and background. No payment at this stage.",
+    description: "Share your goals and background.",
     icon: ClipboardCheck,
   },
   {
@@ -47,33 +42,26 @@ export const processSteps: ProcessStep[] = [
   },
   {
     number: "04",
-    title: "Confirm & pay",
-    description: "Only after selection. A seat is held, then the link is sent.",
-    icon: CreditCard,
-  },
-  {
-    number: "05",
     title: "Live Training",
     description: "Small-cohort sessions with a working coach.",
     icon: Presentation,
   },
   {
-    number: "06",
+    number: "05",
     title: "Practice & Activities",
     description: "Weekly roleplays, drills and reviews.",
     icon: Repeat,
   },
   {
-    number: "07",
+    number: "06",
     title: "Proof-of-Work",
     description: "Build a portfolio recruiters can verify.",
     icon: Sparkles,
   },
   {
-    number: "08",
+    number: "07",
     title: "Career Opportunities",
-    description:
-      "Interview readiness, plus introductions where there is a genuine fit.",
+    description: "Interview readiness and warm introductions.",
     icon: MessagesSquare,
   },
 ];

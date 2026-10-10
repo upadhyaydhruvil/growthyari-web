@@ -4,14 +4,15 @@
  *
  * The current site does not publish: founders, a founding date, team
  * members, an office, awards, funding, learner counts or a company
- * registration. None of that has been invented here. The page invites the
- * reader to ask for anything it is missing rather than listing the gap.
+ * registration. None of that has been invented here. `unknownFacts` below
+ * is surfaced to the reader as an honest "not published yet" note rather
+ * than being quietly dropped or filled with placeholders.
  */
 
 export const aboutEyebrow = "About";
 export const aboutTitle = "A professional growth accelerator, not another course catalogue.";
 export const aboutIntro =
-  "GrowthYari helps students, freshers and career switchers master sales, communication and business execution through live coaching, practical learning, proof-of-work and personalised feedback. Working professionals and entrepreneurs take the same material.";
+  "GrowthYari helps students, professionals, entrepreneurs and business owners master sales, communication and business execution through live coaching, practical learning, proof-of-work and personalized feedback.";
 
 /** What GrowthYari is arguing exists as a problem. */
 export const aboutThesisTitle = "Why GrowthYari exists";
@@ -47,3 +48,11 @@ export const aboutValues = [
     body: "We would rather say no at the assessment call than waste eight weeks of your time.",
   },
 ];
+
+/** Rendered verbatim on the About page so the gap is visible, not hidden. */
+export const unknownFacts = [
+  "Founders and team members",
+  "Company registration and founding date",
+  "Office location",
+  "Learner count, placement numbers and awards",
+] as const;

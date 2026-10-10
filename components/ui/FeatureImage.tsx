@@ -49,7 +49,7 @@ export function FeatureImage({
             {item.label}
           </span>
           <span className="mt-0.5 block text-[12.5px] text-muted">
-            Illustrative example of the format, not student work.
+            Illustration, not a product screenshot
           </span>
         </span>
       </figcaption>

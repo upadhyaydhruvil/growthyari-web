@@ -35,7 +35,7 @@ export const personasIntro =
   "Most students do not have an effort problem. They get held up by one specific doubt, and each one needs a different skill first.";
 
 export const personasNote =
-  "Based on situations students describe to us. Details are composites.";
+  "Composite personas written to show how the program maps to a real student situation. Not real students, and not results claims.";
 
 export const personas: StudentPersona[] = [
   {

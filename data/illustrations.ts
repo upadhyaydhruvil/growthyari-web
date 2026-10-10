@@ -118,7 +118,7 @@ export const illustrations: Illustration[] = [
   {
     src: "/gallery/gallery-09.webp",
     label: "Business growth",
-    alt: "Business growth illustration.",
+    alt: "Program illustration. Subject not yet confirmed — this file had no matching description.",
     icon: Briefcase,
     page: "/about",
     placement: "pair",
