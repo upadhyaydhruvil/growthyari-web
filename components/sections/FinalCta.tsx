@@ -5,9 +5,9 @@ import { primaryCta, secondaryCta } from "@/data/site";
 
 export function FinalCta() {
   return (
-    <section className="bg-surface pb-20 sm:pb-28">
+    <section className="bg-surface pb-16 sm:pb-20">
       <div className="container-page">
-        <div className="neon-edge relative overflow-hidden rounded-xl bg-panel px-6 py-14 sm:px-12 sm:py-20">
+        <div className="neon-edge relative overflow-hidden rounded-xl bg-panel px-6 py-12 sm:px-12 sm:py-16">
           <div
             aria-hidden="true"
             className="tech-grid absolute inset-0 opacity-70"
