@@ -195,12 +195,12 @@
 }
 
 @utility section-pad {
-  padding-block: 4.5rem;
+  padding-block: 3.5rem;
   @media (width >= 48rem) {
-    padding-block: 6.5rem;
+    padding-block: 5rem;
   }
   @media (width >= 80rem) {
-    padding-block: 7.5rem;
+    padding-block: 5.5rem;
   }
 }
 

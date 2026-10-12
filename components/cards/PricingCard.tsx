@@ -1,5 +1,6 @@
 import { Check } from "lucide-react";
 import { ButtonLink } from "@/components/ui/Button";
+import { TrackedButtonLink } from "@/components/programs/TrackedButtonLink";
 import type { Program } from "@/data/programs";
 import { cn } from "@/lib/cn";
 
@@ -11,10 +12,13 @@ export function PricingCard({
   program,
   className,
   compact = false,
+  trackEvent,
 }: {
   program: Program;
   className?: string;
   compact?: boolean;
+  /** Analytics event name fired when the pricing CTA is clicked. */
+  trackEvent?: string;
 }) {
   const featured = program.featured;
 
@@ -121,14 +125,27 @@ export function PricingCard({
       <div className="mt-8">
         {/* Pay routes to the payment page, not contact. The page itself states
             that payment is not open yet, so the label is deliberately literal. */}
-        <ButtonLink
-          href={`/payment?program=${program.slug}`}
-          variant={featured ? "solid" : "outline"}
-          size="lg"
-          className="w-full"
-        >
-          {program.ctaLabel}
-        </ButtonLink>
+        {trackEvent ? (
+          <TrackedButtonLink
+            href={`/payment?program=${program.slug}`}
+            variant={featured ? "solid" : "outline"}
+            size="lg"
+            className="w-full"
+            event={trackEvent}
+            eventProps={{ program: program.slug }}
+          >
+            {program.ctaLabel}
+          </TrackedButtonLink>
+        ) : (
+          <ButtonLink
+            href={`/payment?program=${program.slug}`}
+            variant={featured ? "solid" : "outline"}
+            size="lg"
+            className="w-full"
+          >
+            {program.ctaLabel}
+          </ButtonLink>
+        )}
         <p
           className={cn(
             "mt-3 text-center text-[12.5px]",
