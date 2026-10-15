@@ -1,54 +1,96 @@
-import Image from "next/image";
+import type { LucideIcon } from "lucide-react";
+import {
+  Briefcase,
+  Ear,
+  Gauge,
+  MessageCircleQuestion,
+  Mic,
+  Network,
+  PenLine,
+  Presentation,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { coreSkills } from "@/data/pilot";
 
 /**
- * The ten core skills the batch develops: a full-width illustration, then a
- * numbered grid. Each item is revealed on scroll.
+ * One icon per skill, in the same order as `coreSkills`. Kept as a parallel
+ * array (not a property of the data) because the icons are a presentation
+ * choice, not part of the program's content.
+ */
+const ICONS: LucideIcon[] = [
+  Mic, // Clear speech
+  Network, // Structured thinking
+  Ear, // Active listening
+  MessageCircleQuestion, // Asking good questions
+  Gauge, // Confident delivery
+  Presentation, // Presentation skills
+  ShieldCheck, // Handling objections
+  Sparkles, // Persuasion
+  PenLine, // Professional writing
+  Briefcase, // Interview communication
+];
+
+/**
+ * The ten core skills the batch develops. Each is a card that lifts and lights
+ * on hover, with a gradient hairline that draws in from the left. Cards arrive
+ * on a scroll stagger so the grid assembles rather than appearing at once.
  */
 export function CoreSkillsSection() {
   return (
-    <section className="section-pad bg-surface" id="skills">
-      <div className="container-page">
+    <section className="section-pad relative overflow-hidden bg-surface" id="skills">
+      <div
+        aria-hidden="true"
+        className="tech-grid-fine tech-mask absolute inset-0 opacity-40"
+      />
+
+      <div className="container-page relative">
         <SectionHeading
           eyebrow="Core skills"
           title="Ten skills you actually practise."
           intro="Each one is taught, then used in a real scenario, then reviewed. None of them are learned by watching."
         />
 
-        <Reveal className="mt-12">
-          <div className="overflow-hidden rounded-lg border border-line bg-canvas">
-            <Image
-              src="/images/ten-skills-you-practise.png"
-              alt="Illustration of the ten core skills practised in the program."
-              width={1536}
-              height={1024}
-              className="h-auto w-full"
-              sizes="(min-width: 78rem) 1200px, 100vw"
-            />
-          </div>
-        </Reveal>
+        <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {coreSkills.map((skill, index) => {
+            const Icon = ICONS[index] ?? Mic;
+            return (
+              <Reveal
+                as="li"
+                key={skill.title}
+                delay={(index % 3) * 80}
+                className="group relative h-full"
+              >
+                <div className="neon-card neon-card-hover relative flex h-full flex-col overflow-hidden p-6">
+                  <span
+                    aria-hidden="true"
+                    className="absolute inset-x-0 top-0 h-px origin-left scale-x-0 bg-gradient-to-r from-neon via-lime to-transparent transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100"
+                  />
 
-        <ul className="mt-14 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
-          {coreSkills.map((skill, index) => (
-            <Reveal
-              as="li"
-              key={skill.title}
-              delay={index * 40}
-              className="border-t border-line pt-5"
-            >
-              <span className="font-mono text-[12px] font-medium tracking-[0.16em] text-lime-text">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <h3 className="mt-3 text-[18px] font-semibold tracking-[-0.02em] text-ink">
-                {skill.title}
-              </h3>
-              <p className="mt-2 text-[14.5px] leading-7 text-body">
-                {skill.description}
-              </p>
-            </Reveal>
-          ))}
+                  <div className="flex items-center justify-between gap-4">
+                    <span
+                      aria-hidden="true"
+                      className="grid size-11 place-items-center rounded-lg border border-line bg-surface-2 text-neon-text transition-[transform,border-color,box-shadow] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110 group-hover:border-neon/40 group-hover:shadow-neon"
+                    >
+                      <Icon className="size-5" strokeWidth={1.8} />
+                    </span>
+                    <span className="font-mono text-[12px] font-medium tracking-[0.16em] text-lime-text transition-colors duration-300 group-hover:text-neon-text">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+
+                  <h3 className="mt-5 text-[17px] font-semibold tracking-[-0.02em] text-ink">
+                    {skill.title}
+                  </h3>
+                  <p className="mt-2 text-[14px] leading-6 text-body">
+                    {skill.description}
+                  </p>
+                </div>
+              </Reveal>
+            );
+          })}
         </ul>
       </div>
     </section>
