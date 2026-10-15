@@ -19,7 +19,8 @@ export function FaqSection() {
                 aria-hidden="true"
               />
               <p className="mt-4 text-[14.5px] leading-7 text-body">
-                Still unsure? Apply and use the Career Assessment Call to ask us anything.
+                Still unsure? Apply and use the short assessment conversation to ask us
+                anything.
               </p>
               <ButtonLink href={primaryCta.href} size="sm" className="mt-5">
                 {primaryCta.label}

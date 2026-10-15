@@ -11,19 +11,23 @@ import { RoadmapSection } from "@/components/sections/RoadmapSection";
 import { WhoShouldJoinSection } from "@/components/sections/WhoShouldJoinSection";
 import { WhySection } from "@/components/sections/WhySection";
 
+/**
+ * Home page order — a deliberate funnel:
+ *   promise → context → why → how → detail → outcome → fit → objections → act
+ */
 export default function HomePage() {
   return (
     <>
       <Hero />
       <ProgramFactsStrip />
       <ProblemSection />
+      <WhySection />
       <PilotShowcase />
+      <ExperienceSection />
       <CoreSkillsSection />
       <RoadmapSection />
-      <ExperienceSection />
-      <WhySection />
-      <WhoShouldJoinSection />
       <ProofSection />
+      <WhoShouldJoinSection />
       <FaqSection />
       <FinalCta />
     </>

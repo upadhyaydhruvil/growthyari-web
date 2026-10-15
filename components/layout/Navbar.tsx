@@ -7,7 +7,7 @@ import { Menu, X } from "lucide-react";
 import { ButtonLink } from "@/components/ui/Button";
 import { Logo } from "@/components/ui/Logo";
 import { navLinks, primaryCta } from "@/data/site";
-import { upcomingWorkshopCount } from "@/data/workshops";
+import { hasDemoWorkshops, upcomingWorkshopCount } from "@/data/workshops";
 import { cn } from "@/lib/cn";
 
 const SCROLL_THRESHOLD = 24;
@@ -125,7 +125,9 @@ export function Navbar() {
                     style={{ "--i": index + 1 } as React.CSSProperties}
                   >
                     {link.label}
-                    {link.href === "/workshops" && upcomingWorkshopCount > 0 ? (
+                    {link.href === "/workshops" &&
+                    !hasDemoWorkshops &&
+                    upcomingWorkshopCount > 0 ? (
                       <span className="ml-1.5 inline-flex size-[18px] items-center justify-center rounded-full bg-neon/15 text-[10px] font-semibold text-lime-text">
                         {upcomingWorkshopCount}
                       </span>
@@ -253,7 +255,9 @@ export function Navbar() {
                       )}
                     />
                     {link.label}
-                    {link.href === "/workshops" && upcomingWorkshopCount > 0 ? (
+                    {link.href === "/workshops" &&
+                    !hasDemoWorkshops &&
+                    upcomingWorkshopCount > 0 ? (
                       <span className="inline-flex size-6 items-center justify-center rounded-full bg-neon/15 text-[11px] font-semibold text-lime-text">
                         {upcomingWorkshopCount}
                       </span>

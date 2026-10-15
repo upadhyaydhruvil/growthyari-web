@@ -689,6 +689,135 @@
     z-index: -1;
   }
 
+  /* ----------------------------------------------------------------
+     Hero: bold, energetic layer
+     A panning grid, a parallax field driven by the pointer, floating
+     light motes, a staggered load-in and a shimmering headline. Every
+     piece is decorative and collapses under prefers-reduced-motion.
+  ----------------------------------------------------------------- */
+
+  /* The measurement grid drifts one cell stepped, so the hero feels
+     like it is already running before the visitor does anything. */
+  @keyframes gy-grid-pan {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: 64px 64px;
+    }
+  }
+
+  /* A mote of light lifting and fading out. Position/size/timing arrive
+     as custom properties so one keyframe drives the whole field. */
+  @keyframes gy-float {
+    0% {
+      transform: translate3d(0, 0, 0);
+      opacity: 0;
+    }
+    12% {
+      opacity: var(--dot-o, 0.5);
+    }
+    88% {
+      opacity: var(--dot-o, 0.5);
+    }
+    100% {
+      transform: translate3d(var(--dot-x, 0px), -140px, 0);
+      opacity: 0;
+    }
+  }
+
+  /* Headline/content entrance: rise, un-blur, fade. */
+  @keyframes gy-rise-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 28px, 0);
+      filter: blur(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+      filter: blur(0);
+    }
+  }
+
+  /* A light sweeping across the emphasised headline phrase. */
+  @keyframes gy-shimmer {
+    to {
+      background-position: 200% center;
+    }
+  }
+
+  /* A slow rotation + scale for the aurora behind the hero. */
+  @keyframes gy-aurora {
+    0% {
+      transform: translate3d(-4%, 0, 0) scale(1.05) rotate(0deg);
+    }
+    50% {
+      transform: translate3d(4%, -3%, 0) scale(1.18) rotate(8deg);
+    }
+    100% {
+      transform: translate3d(-4%, 0, 0) scale(1.05) rotate(0deg);
+    }
+  }
+
+  .animate-grid-pan {
+    animation: gy-grid-pan 22s linear infinite;
+  }
+
+  .animate-float {
+    animation: gy-float var(--dot-d, 9s) ease-in-out infinite;
+    animation-delay: var(--dot-delay, 0s);
+  }
+
+  .animate-aurora {
+    animation: gy-aurora 24s ease-in-out infinite;
+  }
+
+  /* Staggered on `--i`, so retuning the entrance is one number. */
+  .hero-in {
+    animation: gy-rise-in 780ms var(--ease-out-soft) both;
+    animation-delay: calc(var(--i, 0) * 95ms);
+  }
+
+  /* Gradient headline sweep. `text-shadow` is dropped here on purpose —
+     it smears against a clipped gradient — the glow comes from the mix
+     of neon into lime instead. */
+  .shimmer-text {
+    background-image: linear-gradient(
+      100deg,
+      var(--color-neon-text) 0%,
+      var(--color-lime-text) 28%,
+      #ffffff 50%,
+      var(--color-neon-text) 72%
+    );
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gy-shimmer 7s linear infinite;
+  }
+
+  /* Parallax layer. Pointer position arrives as unitless --mx/--my, so
+     the whole layer shifts with the cursor. `--p-depth` sets how far. */
+  .hero-parallax {
+    transform: translate3d(
+      calc(var(--mx, 0) * var(--p-depth, 24) * 1px),
+      calc(var(--my, 0) * var(--p-depth, 24) * 1px),
+      0
+    );
+    transition: transform 500ms var(--ease-out-soft);
+    will-change: transform;
+  }
+
+  /* A soft aurora wash sitting behind the grid. Blurred, low-opacity. */
+  .hero-aurora {
+    background:
+      radial-gradient(60% 55% at 22% 18%, rgba(47, 177, 136, 0.22), transparent 70%),
+      radial-gradient(50% 50% at 82% 30%, rgba(182, 224, 90, 0.14), transparent 72%),
+      radial-gradient(55% 60% at 60% 92%, rgba(47, 177, 136, 0.12), transparent 70%);
+    filter: blur(30px);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .hero-panel-wash,
     .animate-pulse-dot,
@@ -701,6 +830,29 @@
 
     .hero-panel::before {
       filter: blur(20px);
+    }
+
+    .animate-grid-pan,
+    .animate-float,
+    .animate-aurora,
+    .hero-in,
+    .shimmer-text {
+      animation: none;
+    }
+
+    .hero-in {
+      opacity: 1;
+      filter: none;
+      transform: none;
+    }
+
+    .shimmer-text {
+      color: var(--color-neon-text);
+    }
+
+    .hero-parallax {
+      transform: none;
+      transition: none;
     }
   }
 }
