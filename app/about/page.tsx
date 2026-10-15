@@ -25,7 +25,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata(
   "About",
-  "GrowthYari is a professional growth accelerator: live coaching, practical learning, proof-of-work and personalized feedback for students, professionals, entrepreneurs and business owners.",
+  "GrowthYari runs the 12-Week Sales & Communication Pilot Batch — practical, live training in speaking, listening and conversation skills for students, graduates and freshers.",
   "/about",
 );
 
@@ -41,11 +41,11 @@ export default function AboutPage() {
             <p className="label-xs text-muted">At a glance</p>
             <dl className="mt-5 space-y-4">
               {[
-                { term: "What", value: "A professional growth accelerator" },
-                { term: "Who", value: "Students, professionals, entrepreneurs, business owners" },
-                { term: "Focus", value: "Sales, communication, business execution" },
-                { term: "Format", value: "Live online, small cohorts, up to 8 weeks" },
-                { term: "Output", value: "A proof-of-work portfolio" },
+                { term: "What", value: "Practical sales & communication training" },
+                { term: "Who", value: "Students, graduates and freshers" },
+                { term: "Focus", value: "Sales and communication" },
+                { term: "Format", value: "A 12-week practical program" },
+                { term: "Output", value: "Evidence of your skills" },
               ].map((row) => (
                 <div key={row.term} className="border-t border-line pt-3.5">
                   <dt className="font-mono text-[10.5px] tracking-[0.16em] text-muted uppercase">

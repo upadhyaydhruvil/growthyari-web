@@ -23,10 +23,9 @@ const EMPTY: Values = {
 type Status = "idle" | "submitting" | "success" | "error";
 
 const subjects = [
-  "Applying for the next cohort",
-  "Group Cohort enquiry",
-  "1:1 Accelerator enquiry",
+  "Applying for the 12-Week Pilot Batch",
   "Workshops",
+  "Case studies",
   "Something else",
 ];
 
@@ -163,8 +162,8 @@ export function ContactForm() {
           </h2>
           <p className="mt-2.5 max-w-md text-[14.5px] leading-7 text-body">
             Thanks, {values.name.trim().split(" ")[0]}. We&apos;ll review your goals and
-            background, then invite you to a 1:1 Career Assessment call to map your
-            growth path.
+            background, then invite you to a short assessment conversation if the batch
+            looks like a fit.
           </p>
         </div>
         <Button variant="outline" size="sm" onClick={handleReset}>

@@ -87,8 +87,8 @@ export interface SystemMetric {
 }
 
 export const systemMetrics: SystemMetric[] = [
-  { label: "Format", value: "Live online", note: "Cohort, not self-paced" },
-  { label: "Cohort size", value: "Max 5", note: "Per group batch" },
-  { label: "Duration", value: "Up to 8 weeks", note: "Structured, weekly" },
-  { label: "End state", value: "A portfolio", note: "Work a recruiter can open" },
+  { label: "Duration", value: "12 weeks", note: "One skill per week" },
+  { label: "Format", value: "Practical training", note: "Not a recorded course" },
+  { label: "Focus", value: "Sales & communication", note: "The skills that get tested" },
+  { label: "End state", value: "Evidence of skills", note: "Work you can show" },
 ];

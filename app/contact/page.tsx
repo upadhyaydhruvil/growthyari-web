@@ -11,7 +11,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata(
   "Contact",
-  "Talk to GrowthYari. Send an enquiry about the next cohort, ask about a workshop, or book a 1:1 Career Assessment call.",
+  "Talk to GrowthYari. Ask about the 12-Week Sales & Communication Pilot Batch, a workshop, or the assessment conversation.",
   "/contact",
 );
 
@@ -35,7 +35,7 @@ export default function ContactPage() {
             <span className="text-neon-text">where you&apos;re stuck.</span>
           </>
         }
-        intro="Tell us your background and what you want to change. Every applicant gets a 1:1 Career Assessment call — it takes about three minutes to send your side of it."
+        intro="Tell us your background and what you want to change. Applying is the fastest route — but if you have a question first, send it here and we will reply."
       />
 
       <section className="section-pad bg-surface">
@@ -47,9 +47,8 @@ export default function ContactPage() {
                 Direct channels
               </h2>
               <p className="mt-3 max-w-md text-[14.5px] leading-7 text-body">
-                GrowthYari does not publish an email address, phone number, office or
-                social profiles at the moment. The enquiry form is the way in — it goes
-                to the team directly.
+                Email is the one public channel we publish. Everywhere else, the enquiry
+                form is the way in — it goes to the team directly.
               </p>
 
               <ul className="mt-9 divide-y divide-line border-y border-line">

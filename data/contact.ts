@@ -66,6 +66,6 @@ export const contactResponse = {
   steps: [
     "You send the enquiry — it takes about three minutes.",
     "We review your goals and background.",
-    "We invite you to a 1:1 Career Assessment call to map your growth path.",
+    "We invite you to a short assessment conversation to see if the batch is right for you.",
   ],
 } as const;

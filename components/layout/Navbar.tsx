@@ -167,7 +167,7 @@ export function Navbar() {
             variant="primary"
             className="hidden sm:inline-flex"
           >
-            Apply now
+            {primaryCta.shortLabel}
           </ButtonLink>
 
           <button

@@ -1,9 +1,14 @@
 import Link from "next/link";
-import { ArrowRight, Clock, Users } from "lucide-react";
+import { ArrowRight, Clock, Target } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 import type { Program } from "@/data/programs";
 import { cn } from "@/lib/cn";
 
+/**
+ * Program summary card. Public pricing was removed in the 2026-10 restructure,
+ * so this card shows what the program covers (duration + focus) instead of a
+ * fee, and links to the single program page.
+ */
 export function ProgramCard({
   program,
   className,
@@ -37,8 +42,8 @@ export function ProgramCard({
           {program.duration}
         </span>
         <span className="inline-flex items-center gap-1.5">
-          <Users className="size-3.5 text-muted" aria-hidden="true" />
-          {program.cohortSize}
+          <Target className="size-3.5 text-muted" aria-hidden="true" />
+          {program.focus}
         </span>
       </div>
 
@@ -56,17 +61,14 @@ export function ProgramCard({
         ))}
       </ul>
 
-      <div className="mt-7 flex items-end justify-between gap-4 border-t border-line pt-6">
-        <div>
-          <p className="font-display text-[28px] leading-none font-semibold tracking-[-0.035em] text-ink">
-            {program.price.amount}
-          </p>
-          <p className="mt-1.5 text-[12.5px] text-muted">{program.price.note}</p>
-        </div>
+      <div className="mt-7 flex items-center justify-between gap-4 border-t border-line pt-6">
+        <p className="text-[13px] leading-6 text-muted">
+          Fees, if any, are discussed after an application.
+        </p>
 
         <Link
-          href={`/programs/${program.slug}`}
-          className="inline-flex items-center gap-1.5 rounded-sm text-[14px] font-medium text-neon-text transition-colors duration-200 hover:text-neon-text"
+          href="/programs"
+          className="inline-flex shrink-0 items-center gap-1.5 rounded-sm text-[14px] font-medium text-neon-text transition-colors duration-200 hover:text-neon-text"
         >
           View program
           <ArrowRight

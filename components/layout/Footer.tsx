@@ -1,16 +1,21 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
-import { navLinks, site } from "@/data/site";
-import { programs } from "@/data/programs";
+import { ButtonLink } from "@/components/ui/Button";
+import { navLinks, primaryCta, site } from "@/data/site";
 
 /**
- * growthyari.com publishes no email, phone, address or social profiles,
- * so none appear here. The enquiry form is the single contact channel,
- * which is also how the current site handles it.
+ * GrowthYari publishes no email, phone, address or social profiles, so none
+ * appear here. The registration portal and the enquiry form are the two ways
+ * in. Public pricing was removed, so no prices appear anywhere in the footer.
  */
 export function Footer() {
   const year = new Date().getFullYear();
+
+  const legalLinks = [
+    { label: "Privacy", href: "/privacy" as const },
+    { label: "Terms", href: "/terms" as const },
+    { label: "Case studies", href: "/case-studies" as const },
+  ];
 
   return (
     <footer className="border-t border-line bg-surface">
@@ -23,9 +28,9 @@ export function Footer() {
             <p className="mt-4 max-w-sm text-[14px] leading-6 text-body">
               {site.defaultDescription}
             </p>
-            <p className="mt-5 font-mono text-[11px] tracking-[0.14em] text-muted uppercase">
-              {site.descriptor}
-            </p>
+            <ButtonLink href={primaryCta.href} size="md" className="mt-6">
+              {primaryCta.shortLabel}
+            </ButtonLink>
           </div>
 
           <nav aria-label="Explore" className="md:col-span-3">
@@ -44,34 +49,19 @@ export function Footer() {
             </ul>
           </nav>
 
-          <nav aria-label="Programs" className="md:col-span-4">
-            <h2 className="label-xs text-muted">Programs</h2>
+          <nav aria-label="Legal and more" className="md:col-span-4">
+            <h2 className="label-xs text-muted">More</h2>
             <ul className="mt-4 space-y-3">
-              {programs.map((program) => (
-                <li key={program.slug}>
+              {legalLinks.map((link) => (
+                <li key={link.href}>
                   <Link
-                    href={`/programs/${program.slug}`}
-                    className="group inline-flex items-center gap-1.5 text-[14.5px] text-ink-2 transition-colors duration-200 hover:text-neon-text"
+                    href={link.href}
+                    className="text-[14.5px] text-ink-2 transition-colors duration-200 hover:text-neon-text"
                   >
-                    {program.name}
-                    <span className="font-mono text-[12px] text-muted">
-                      {program.price.amount}
-                    </span>
-                    <ArrowUpRight
-                      aria-hidden="true"
-                      className="size-3.5 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
-                    />
+                    {link.label}
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link
-                  href="/programs"
-                  className="text-[14.5px] font-medium text-neon-text transition-colors duration-200 hover:text-neon-text"
-                >
-                  Compare both programs
-                </Link>
-              </li>
             </ul>
           </nav>
         </div>
@@ -81,7 +71,7 @@ export function Footer() {
             © {year} {site.name}. All rights reserved.
           </p>
           <p className="text-[13px] text-muted">
-            Privacy policy and terms are not published yet.
+            The 12-Week Sales &amp; Communication Pilot Batch · Applications open
           </p>
         </div>
       </div>

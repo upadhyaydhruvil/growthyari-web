@@ -1,54 +1,45 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowRight, ClipboardCheck, Clock, Rocket, Send, UserCheck, Users } from "lucide-react";
-import { ProgramCard } from "@/components/cards/ProgramCard";
-import { PricingCard } from "@/components/cards/PricingCard";
-import { FinalCta } from "@/components/sections/FinalCta";
-import { PageHero } from "@/components/sections/PageHero";
-import { ProcessSection } from "@/components/sections/ProcessSection";
-import { ProofSection } from "@/components/sections/ProofSection";
+import { ArrowRight, Clock, Info, Target } from "lucide-react";
+import { ButtonLink } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { JourneyRail } from "@/components/ui/visuals/JourneyRail";
-import { IllustrationBand } from "@/components/sections/IllustrationBand";
-import { cohort } from "@/data/site";
-import { programs } from "@/data/programs";
+import { ExperienceSection } from "@/components/sections/ExperienceSection";
+import { FaqSection } from "@/components/sections/FaqSection";
+import { FinalCta } from "@/components/sections/FinalCta";
+import { PageHero } from "@/components/sections/PageHero";
+import { ProofSection } from "@/components/sections/ProofSection";
+import { WhoShouldJoinSection } from "@/components/sections/WhoShouldJoinSection";
+import { curriculumWeeks } from "@/data/pilot";
+import { flagshipProgram } from "@/data/programs";
+import { confirmedProgramFacts, primaryCta } from "@/data/site";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata(
   "Programs",
-  "GrowthYari runs two programs: a small-cohort Group Cohort of up to five learners and a fully personalized 1:1 Accelerator. Both run for up to 8 weeks of live online coaching and end in a proof-of-work portfolio.",
+  "The GrowthYari 12-Week Sales & Communication Pilot Batch: a practical program for college students, graduates and freshers. Twelve weeks, ten core skills, and a full curriculum of learning, practice and feedback.",
   "/programs",
 );
 
 export default function ProgramsPage() {
-  const group = programs.find((p) => !p.featured);
-  const oneToOne = programs.find((p) => p.featured);
-
   return (
     <>
       <PageHero
         eyebrow="Programs"
-        badge={`New cohort starts ${cohort.startsOn}`}
+        badge="Applications open"
         title={
           <>
-            One program.{" "}
-            <span className="text-neon-text">Two ways in.</span>
+            12-Week Sales &amp;{" "}
+            <span className="text-neon-text">Communication Pilot Batch.</span>
           </>
         }
-        intro="Both tracks run for up to 8 weeks of live online coaching. The difference is who you learn with and how much of the coaching is pointed at you alone."
+        intro={flagshipProgram.description}
         aside={
           <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-lg border border-line bg-line">
-            {[
-              { label: "Duration", value: "Up to 8 weeks", icon: Clock },
-              { label: "Cohort size", value: "Max 5 learners", icon: Users },
-              { label: "Format", value: "Live online", icon: Clock },
-              { label: "Weekly time", value: "5–8 hours", icon: Clock },
-            ].map((item) => (
-              <div key={item.label} className="bg-surface p-5">
-                <dt className="label-xs text-muted">{item.label}</dt>
+            {confirmedProgramFacts.map((fact) => (
+              <div key={fact.label} className="bg-surface p-5">
+                <dt className="label-xs text-muted">{fact.label}</dt>
                 <dd className="mt-2 text-[16px] font-semibold tracking-[-0.02em] text-ink">
-                  {item.value}
+                  {fact.value}
                 </dd>
               </div>
             ))}
@@ -56,165 +47,135 @@ export default function ProgramsPage() {
         }
       />
 
-      {/* Program summaries */}
+      {/* What you build */}
       <section className="section-pad bg-surface">
         <div className="container-page">
-          <SectionHeading
-            eyebrow="Choose your track"
-            title="Pick the level of support you actually need."
-            intro="Both tracks finish the same way — with work you can show an employer."
-          />
+          <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+            <div className="lg:col-span-5">
+              <SectionHeading
+                eyebrow="What you build"
+                title="Practical skills, practised out loud."
+                intro={flagshipProgram.summary}
+              />
+              <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 border-t border-line pt-5 text-[13.5px] text-body">
+                <span className="inline-flex items-center gap-2">
+                  <Clock className="size-4 text-neon-text" aria-hidden="true" />
+                  {flagshipProgram.duration}
+                </span>
+                <span className="inline-flex items-center gap-2">
+                  <Target className="size-4 text-neon-text" aria-hidden="true" />
+                  {flagshipProgram.focus}
+                </span>
+              </div>
+              <ButtonLink href={primaryCta.href} size="lg" className="mt-8 w-full sm:w-auto">
+                {primaryCta.label}
+                <ArrowRight className="size-4" aria-hidden="true" />
+              </ButtonLink>
+            </div>
 
-          <div className="mt-11 grid gap-6 lg:grid-cols-2">
-            {programs.map((program, index) => (
-              <Reveal key={program.slug} delay={index * 80}>
-                <ProgramCard program={program} className="h-full" />
-              </Reveal>
-            ))}
+            <div className="lg:col-span-7">
+              <ul className="grid gap-x-10 gap-y-3.5 border-t border-line pt-6 sm:grid-cols-2">
+                {flagshipProgram.features.map((feature, index) => (
+                  <Reveal
+                    as="li"
+                    key={feature}
+                    delay={index * 45}
+                    className="flex items-start gap-3"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="mt-1.5 size-1.5 shrink-0 rounded-full bg-neon shadow-[0_0_8px_rgba(23,124,93,0.45)]"
+                    />
+                    <span className="text-[14.5px] leading-6 text-body">{feature}</span>
+                  </Reveal>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Pricing */}
-      <section className="section-pad bg-surface" id="pricing">
-        <div className="container-page">
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-            <SectionHeading
-              eyebrow="Pricing"
-              title="What each track costs."
-              intro={`Next batch begins ${cohort.startsOn}. Seats are limited to ${cohort.seatsPerCohort} per cohort. Prices exclude GST.`}
-              className="max-w-xl"
-            />
-          </div>
-
-          <div className="mt-11 grid items-start gap-6 lg:grid-cols-2">
-            {group ? <PricingCard program={group} className="h-full" /> : null}
-            {oneToOne ? <PricingCard program={oneToOne} className="h-full" /> : null}
-          </div>
-
-          <p className="mt-8 text-[13px] text-muted">
-            Both tracks include resume reviews, mock interviews and career guidance.
-          </p>
-        </div>
-      </section>
-
-      {/* Enrollment path */}
-      <section className="section-pad bg-surface" id="how-to-join">
+      {/* Full 12-week curriculum */}
+      <section className="section-pad bg-canvas" id="curriculum">
         <div className="container-page">
           <SectionHeading
-            eyebrow="How to join"
-            title="From enquiry to first session."
-            intro="The same four steps apply to both tracks."
-            align="center"
+            eyebrow="Full curriculum"
+            title="The twelve weeks in detail."
+            intro="Each week has one objective, a set of practice activities and a concrete output you keep."
           />
 
-          <div className="mt-14 rounded-lg border border-line bg-surface p-6 sm:p-9">
-            <JourneyRail
-              steps={[
-                {
-                  icon: Send,
-                  label: "Enquiry",
-                  note: "Tell us your background and what you want to change.",
-                },
-                {
-                  icon: ClipboardCheck,
-                  label: "Assessment",
-                  note: "A 1:1 Career Assessment call maps where you actually are.",
-                },
-                {
-                  icon: UserCheck,
-                  label: "Selection",
-                  note: "We confirm the track and a seat in the next cohort.",
-                },
-                {
-                  icon: Rocket,
-                  label: "First session",
-                  note: "Live training starts, with weekly practice and feedback.",
-                },
-              ]}
-            />
+          <div className="mt-8 flex items-start gap-3 rounded-lg border border-amber/25 bg-amber/5 p-5">
+            <Info className="mt-0.5 size-4 shrink-0 text-amber-text" aria-hidden="true" />
+            <p className="text-[13.5px] leading-6 text-ink-2">
+              This is the proposed curriculum for the pilot. Every module is confirmed
+              as deliverable before the batch begins.
+            </p>
           </div>
-        </div>
-      </section>
 
-      <IllustrationBand
-        page="/programs"
-        eyebrow="The shape of the work"
-        title="Where a track takes you."
-        intro="Each track runs the same loop at a different pace and with a different level of support."
-      />
-
-      {/* Highlights per track */}
-      <section className="section-pad bg-surface">
-        <div className="container-page">
-          <SectionHeading
-            eyebrow="Included in every track"
-            title="What both programs share."
-            intro="Whichever you choose, the outcome is the same: a portfolio a recruiter can verify."
-          />
-
-          <div className="mt-11 grid gap-6 lg:grid-cols-2">
-            {programs.map((program) => (
-              <div
-                key={program.slug}
-                className="rounded-lg border border-line bg-surface p-7 sm:p-8"
+          <ol className="mt-10 border-t border-line">
+            {curriculumWeeks.map((week, index) => (
+              <Reveal
+                as="li"
+                key={week.week}
+                delay={(index % 4) * 40}
+                className="grid gap-6 border-b border-line py-8 lg:grid-cols-12 lg:gap-10"
               >
-                <div className="flex items-center justify-between gap-4">
-                  <h3 className="text-[19px] font-semibold tracking-[-0.02em] text-ink">
-                    {program.name}
+                <div className="lg:col-span-3">
+                  <p className="font-mono text-[12px] font-medium tracking-[0.16em] text-lime-text">
+                    WEEK {String(week.week).padStart(2, "0")}
+                  </p>
+                  <h3 className="mt-3 text-[19px] leading-tight font-semibold tracking-[-0.02em] text-ink">
+                    {week.title}
                   </h3>
-                  <span className="font-mono text-[12px] text-muted">
-                    {program.price.amount}
-                  </span>
                 </div>
 
-                <dl className="mt-6 grid gap-4 sm:grid-cols-2">
-                  {[
-                    { label: "Duration", value: program.duration },
-                    { label: "Format", value: program.format },
-                    { label: "Cohort", value: program.cohortSize },
-                    { label: "Weekly time", value: program.weeklyTime },
-                  ].map((item) => (
-                    <div key={item.label} className="border-t border-line pt-3">
-                      <dt className="text-[12.5px] text-muted">{item.label}</dt>
-                      <dd className="mt-1 text-[14.5px] font-medium text-ink">
-                        {item.value}
-                      </dd>
-                    </div>
-                  ))}
-                </dl>
+                <div className="lg:col-span-5">
+                  <p className="text-[12.5px] font-medium tracking-[0.1em] text-muted uppercase">
+                    Objective
+                  </p>
+                  <p className="mt-2 text-[14.5px] leading-7 text-body">
+                    {week.objective}
+                  </p>
 
-                {program.highlights ? (
-                  <ul className="mt-6 space-y-2.5 border-t border-line pt-5">
-                    {program.highlights.map((highlight) => (
-                      <li key={highlight} className="flex items-start gap-2.5">
+                  <p className="mt-5 text-[12.5px] font-medium tracking-[0.1em] text-muted uppercase">
+                    Activities
+                  </p>
+                  <ul className="mt-2 space-y-1.5">
+                    {week.activities.map((activity) => (
+                      <li
+                        key={activity}
+                        className="flex items-start gap-2.5 text-[14px] leading-6 text-ink-2"
+                      >
                         <span
                           aria-hidden="true"
-                          className="mt-1.5 size-1.5 shrink-0 rounded-full bg-neon shadow-[0_0_8px_rgba(23,124,93,0.45)]"
+                          className="mt-2 size-1 shrink-0 rounded-full bg-neon"
                         />
-                        <span className="text-[14.5px] leading-6 text-body">
-                          {highlight}
-                        </span>
+                        {activity}
                       </li>
                     ))}
                   </ul>
-                ) : null}
+                </div>
 
-                <Link
-                  href={`/programs/${program.slug}`}
-                  className="mt-6 inline-flex items-center gap-1.5 text-[14px] font-medium text-neon-text transition-colors hover:text-neon-text"
-                >
-                  Read the full curriculum
-                  <ArrowRight className="size-4" aria-hidden="true" />
-                </Link>
-              </div>
+                <div className="lg:col-span-4">
+                  <div className="rounded-lg border border-line bg-surface p-5">
+                    <p className="text-[12.5px] font-medium tracking-[0.1em] text-muted uppercase">
+                      Output
+                    </p>
+                    <p className="mt-2 text-[14.5px] leading-7 text-ink">
+                      {week.output}
+                    </p>
+                  </div>
+                </div>
+              </Reveal>
             ))}
-          </div>
+          </ol>
         </div>
       </section>
 
-      <ProcessSection />
+      <ExperienceSection />
+      <WhoShouldJoinSection />
       <ProofSection />
+      <FaqSection />
       <FinalCta />
     </>
   );

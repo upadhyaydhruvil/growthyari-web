@@ -24,13 +24,13 @@ export function FinalCta() {
             </Badge>
 
             <h2 className="text-[32px] leading-[1.1] font-semibold text-ink sm:text-[44px]">
-              Your career growth starts with{" "}
-              <span className="glow-text-lime text-lime-text">one decision.</span>
+              Your next conversation can be{" "}
+              <span className="glow-text-lime text-lime-text">better prepared.</span>
             </h2>
 
             <p className="mx-auto mt-6 max-w-xl text-[15px] leading-7 text-muted sm:text-[16px]">
-              Cohort seats are capped at five. Apply now and we&apos;ll invite you to a
-              Career Assessment Call.
+              Apply for the 12-Week Sales &amp; Communication Pilot Batch. We review every
+              application and invite suitable applicants to a short assessment conversation.
             </p>
 
             <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">

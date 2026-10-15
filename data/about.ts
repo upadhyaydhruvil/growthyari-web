@@ -10,9 +10,9 @@
  */
 
 export const aboutEyebrow = "About";
-export const aboutTitle = "A professional growth accelerator, not another course catalogue.";
+export const aboutTitle = "A practitioner's program, not another course catalogue.";
 export const aboutIntro =
-  "GrowthYari helps students, professionals, entrepreneurs and business owners master sales, communication and business execution through live coaching, practical learning, proof-of-work and personalized feedback.";
+  "GrowthYari helps students, graduates and freshers build the sales and communication skills that interviews, internships and first jobs actually ask for — through live, practical training and feedback, not recorded courses.";
 
 /** What GrowthYari is arguing exists as a problem. */
 export const aboutThesisTitle = "Why GrowthYari exists";
@@ -27,17 +27,17 @@ export const aboutApproach =
 /** The selection stance, which is unusually explicit on the current site. */
 export const aboutSelection = {
   title: "We admit learners we can genuinely move",
-  body: "Every applicant gets a 1:1 Career Assessment call. It is not a formality — if we do not think we can move you, we will say so at that point rather than eight weeks in.",
+  body: "Every applicant gets a short assessment conversation. It is not a formality — if we do not think the batch can move you, we will say so at that point rather than twelve weeks in.",
 };
 
 export const aboutValues = [
   {
     title: "Evidence over certificates",
-    body: "A certificate is a claim. A portfolio is proof. We optimise for the second one.",
+    body: "A certificate is a claim. Recordings, written work and outcomes are proof. We optimise for the second one.",
   },
   {
-    title: "Small on purpose",
-    body: "A maximum of five learners per cohort. It caps our growth and it is the point.",
+    title: "Practice over theory",
+    body: "You learn by doing — out loud, in real scenarios — not by watching someone else do it.",
   },
   {
     title: "Live, not recorded",
@@ -45,7 +45,7 @@ export const aboutValues = [
   },
   {
     title: "Honest selection",
-    body: "We would rather say no at the assessment call than waste eight weeks of your time.",
+    body: "We would rather say no at the assessment conversation than waste twelve weeks of your time.",
   },
 ];
 

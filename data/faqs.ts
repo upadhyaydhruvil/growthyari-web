@@ -1,5 +1,11 @@
 /**
- * FAQ. Verbatim question and answer pairs from growthyari.com.
+ * FAQ.
+ *
+ * Rewritten for the 12-Week Sales & Communication Pilot Batch. Every answer
+ * here is either confirmed or an honest deferral — there are no placeholders
+ * and no invented specifics. Questions whose answers are not yet fixed (exact
+ * weekly hours, batch dates) are answered by saying the detail is confirmed
+ * before the batch begins, rather than guessed at.
  */
 
 export interface Faq {
@@ -11,35 +17,36 @@ export const faqs: Faq[] = [
   {
     question: "Who is this program for?",
     answer:
-      "Students, professionals, entrepreneurs and career switchers who want practical skills and measurable career growth.",
+      "College students, recent graduates and freshers who want to speak clearly and handle real conversations — in interviews, presentations, client calls and first jobs.",
   },
   {
-    question: "Do I need sales experience?",
+    question: "Do I need any sales or public-speaking experience?",
     answer:
-      "No. We start from fundamentals and gradually build practical skills.",
+      "No. The batch starts from fundamentals and builds up through practice. You are never expected to arrive already good at it.",
   },
   {
     question: "How long is the program?",
     answer:
-      "The program runs for up to 8 weeks with live coaching sessions.",
+      "It runs for 12 weeks, with one week dedicated to each core skill and a final capstone week.",
   },
   {
-    question: "Will I receive a certificate?",
+    question: "How do I apply?",
     answer:
-      "Yes, but more importantly you'll graduate with a proof-of-work portfolio.",
+      "Through the registration portal. It is a short application — not a payment. We review it and invite suitable applicants to an assessment conversation.",
   },
   {
-    question: "Will you help me get interviews?",
+    question: "What happens after I apply?",
     answer:
-      "Yes. Resume reviews, mock interviews and career guidance are included.",
+      "We review your application and background, then invite you to a short assessment conversation to make sure the batch is right for you. Nothing is charged and no seat is confirmed online.",
   },
   {
-    question: "How much time should I dedicate weekly?",
-    answer: "Around 5–8 hours each week is recommended.",
-  },
-  {
-    question: "What's the difference between Group and 1:1?",
+    question: "Will I get a certificate?",
     answer:
-      "Group is small-cohort learning. 1:1 Accelerator provides personalized coaching and roadmap.",
+      "Yes — but the more useful outcome is the evidence you build during the batch: recordings, written work and a clear before-and-after against your starting point.",
+  },
+  {
+    question: "How much time will I need each week?",
+    answer:
+      "The exact weekly commitment will be confirmed with you before the batch begins. It is built to sit alongside your studies or a job, but it does require regular practice.",
   },
 ];

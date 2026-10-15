@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "GrowthYari — professional growth accelerator";
+export const alt = "GrowthYari — 12-Week Sales & Communication Pilot Batch";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -59,25 +59,25 @@ export default function OpengraphImage() {
               marginBottom: 24,
             }}
           >
-            Professional Growth Accelerator
+            12-Week Sales & Communication Pilot Batch
           </div>
           <div
             style={{
               display: "flex",
-              fontSize: 68,
-              lineHeight: 1.08,
+              fontSize: 54,
+              lineHeight: 1.1,
               fontWeight: 700,
               color: "#eef5f1",
               letterSpacing: "-0.03em",
-              maxWidth: 940,
+              maxWidth: 980,
             }}
           >
-            Build the skills that create better careers and stronger businesses.
+            Speak clearly. Present confidently. Handle real conversations.
           </div>
         </div>
 
         <div style={{ display: "flex", gap: 32, color: "#93aaa1", fontSize: 24 }}>
-          {["Live online sessions", "Up to 8 weeks", "Max 5 learners"].map((item) => (
+          {["12-week program", "Sales & communication", "For students & freshers"].map((item) => (
             <div key={item} style={{ display: "flex" }}>
               {item}
             </div>

@@ -2,21 +2,17 @@ import { ArrowRight, Video } from "lucide-react";
 import { Badge, PulseDot } from "@/components/ui/Badge";
 import { ButtonLink } from "@/components/ui/Button";
 import { HeroShowcase } from "@/components/ui/HeroShowcase";
-import { RotatingWord } from "@/components/ui/RotatingWord";
 import { BackgroundImageLayer } from "@/components/ui/FeatureImage";
 import { backgroundIllustration } from "@/data/illustrations";
-import { cohort, primaryCta, secondaryCta, trustStrip } from "@/data/site";
+import { pilotStatus, primaryCta, secondaryCta, trustStrip } from "@/data/site";
 
 /** The site's only background image. Rendered here, faded well back. */
 const background = backgroundIllustration();
 
 /**
- * The scrolling strip under the hero.
- *
- * Repeats forever, so the content is duplicated once and the track is shifted
- * -50%. The second copy carries `aria-hidden` — a screen reader should hear the
- * list once, not twice. Items come from `trustStrip` rather than being
- * retyped, so a fact can only ever be stated in one place.
+ * The scrolling strip under the hero. Repeats forever, so the content is
+ * duplicated once and the track is shifted -50%. The second copy carries
+ * `aria-hidden` — a screen reader should hear the list once, not twice.
  */
 const MARQUEE = [...trustStrip, ...trustStrip];
 
@@ -41,26 +37,19 @@ export function Hero() {
           <div className="lg:col-span-7">
             <Badge tone="emerald" className="mb-6">
               <PulseDot className="text-neon-text" />
-              {cohort.badge}
+              12-Week Sales &amp; Communication Pilot Batch · {pilotStatus.badge}
             </Badge>
 
-            <h1 className="text-[38px] leading-[1.06] font-semibold text-ink sm:text-[52px] lg:text-[62px]">
-              Build the skills that create{" "}
-              <span className="relative whitespace-nowrap">
-                <RotatingWord />
-                <span
-                  aria-hidden="true"
-                  className="absolute -bottom-0.5 left-0 h-[3px] w-full rounded-full bg-gradient-to-r from-neon-dim via-neon to-neon-dim"
-                />
-              </span>{" "}
-              and{" "}
-              <span className="glow-text text-neon-text">stronger businesses.</span>
+            <h1 className="text-[38px] leading-[1.06] font-semibold text-ink sm:text-[52px] lg:text-[60px]">
+              Speak clearly.{" "}
+              <span className="glow-text text-neon-text">Present confidently.</span>{" "}
+              Handle real conversations.
             </h1>
 
             <p className="mt-7 max-w-xl text-[16px] leading-7 text-body sm:text-[17px] sm:leading-8">
-              GrowthYari helps students, professionals, entrepreneurs and business
-              owners master sales, communication and business execution through live
-              coaching, practical learning, proof-of-work and personalized feedback.
+              GrowthYari runs one focused program: a 12-week batch that builds the
+              speaking, listening and conversation skills interviews, internships and
+              first jobs actually ask for. Practical training — not a recorded course.
             </p>
 
             <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -80,7 +69,7 @@ export function Hero() {
 
             <p className="mt-6 flex items-center gap-2 text-[13.5px] text-muted">
               <Video className="size-4 shrink-0 text-neon-text" aria-hidden="true" />
-              Live online sessions · Around 5–8 hours a week
+              12 weeks · Practical training · For students &amp; freshers
             </p>
           </div>
 

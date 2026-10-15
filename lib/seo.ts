@@ -5,14 +5,14 @@ const OG_IMAGE = {
   url: "/opengraph-image",
   width: 1200,
   height: 630,
-  alt: "GrowthYari — professional growth accelerator",
+  alt: "GrowthYari — 12-Week Sales & Communication Pilot Batch",
 };
 
 const TWITTER_IMAGE = {
   url: "/opengraph-image",
   width: 1200,
   height: 630,
-  alt: "GrowthYari — professional growth accelerator",
+  alt: "GrowthYari — 12-Week Sales & Communication Pilot Batch",
 };
 
 /**
