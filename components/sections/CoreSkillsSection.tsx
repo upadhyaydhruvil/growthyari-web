@@ -1,8 +1,12 @@
+import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { coreSkills } from "@/data/pilot";
 
-/** The ten core skills the batch develops, as a numbered grid. */
+/**
+ * The ten core skills the batch develops: a full-width illustration, then a
+ * numbered grid. Each item is revealed on scroll.
+ */
 export function CoreSkillsSection() {
   return (
     <section className="section-pad bg-surface" id="skills">
@@ -13,7 +17,20 @@ export function CoreSkillsSection() {
           intro="Each one is taught, then used in a real scenario, then reviewed. None of them are learned by watching."
         />
 
-        <ul className="mt-11 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+        <Reveal className="mt-12">
+          <div className="overflow-hidden rounded-lg border border-line bg-canvas">
+            <Image
+              src="/images/ten-skills-you-practise.png"
+              alt="Illustration of the ten core skills practised in the program."
+              width={1536}
+              height={1024}
+              className="h-auto w-full"
+              sizes="(min-width: 78rem) 1200px, 100vw"
+            />
+          </div>
+        </Reveal>
+
+        <ul className="mt-14 grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
           {coreSkills.map((skill, index) => (
             <Reveal
               as="li"
