@@ -45,6 +45,21 @@ export const faqs: Faq[] = [
       "Yes — but the more useful outcome is the evidence you build during the batch: recordings, written work and a clear before-and-after against your starting point.",
   },
   {
+    question: "How much does it cost, and when do I pay?",
+    answer:
+      "Applying is free. Fees are discussed only after the Career Assessment Call, once we have confirmed the batch is the right fit for you. Payment happens after selection — never before.",
+  },
+  {
+    question: "Will this get me a job?",
+    answer:
+      "No, and we will not claim otherwise. What the batch does is build the skills and the evidence — recordings, written work, interview practice — that make you a stronger candidate. The opportunities you pursue are still yours to go after.",
+  },
+  {
+    question: "What is the learning format?",
+    answer:
+      "Live, practical and small-group. You practise out loud in real scenarios and get direct feedback on what to change, rather than working through recorded lectures on your own.",
+  },
+  {
     question: "How much time will I need each week?",
     answer:
       "The exact weekly commitment will be confirmed with you before the batch begins. It is built to sit alongside your studies or a job, but it does require regular practice.",

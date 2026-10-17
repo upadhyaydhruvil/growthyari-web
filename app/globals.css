@@ -1,124 +1,130 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------
-   GrowthYari design tokens — "night meadow" theme
-   Near-black green base with emerald and lime as the interactive layer,
-   plus white cards floating on top.
+   GrowthYari design tokens — "warm editorial" theme
+   ------------------------------------------------------------------
+   The 2026-10 rebrand moves the site off the near-black "night meadow"
+   base and onto a warm ivory editorial ground: paper-like backgrounds,
+   deep forest green for trust and contrast, charcoal for legibility and
+   a single terracotta accent for emotional emphasis.
 
-   The base is #101a16, not #000. Pure black kills the depth cues the
-   borders and blooms rely on, makes the emerald glow smear, and reads
-   as unfinished rather than dark. This keeps a green cast so the accent
-   colour belongs to the background.
+   Background alternation is deliberate and limited to three grounds:
+     * warm ivory  — the default, most of the page
+     * soft sand   — quiet bands that separate ideas
+     * deep forest — contrast sections, the footer, the closing CTA
+   Terracotta never fills a whole section. It is an accent, not a wash.
 
-   Text is named by role, not by hue, so the whole palette re-themes
-   from this block alone.
+   Text is named by role, not by hue, so the palette re-themes from this
+   block alone. There are two scales, and they must not be mixed:
+     * ink / ink-2 / body / muted          — on the ivory + sand grounds
+     * card-ink / card-ink-2 / card-body…  — on white cards
+   Dark (forest) sections do not need their own scale: `.on-forest`
+   re-points every role at a light-on-dark value in one place, so shared
+   components keep working when they are dropped into a dark band.
 
-   There are two text scales, and they must not be mixed:
-     * ink / ink-2 / body / muted            — on the dark base
-     * card-ink / card-ink-2 / card-body …   — on white cards
-   White cards cannot use `ink`, which is near-white here and would
-   disappear. HeroShowcase is the only white surface, so it uses the
-   card scale throughout.
+   COLOUR MAPPING NOTE (legacy names kept so ~40 components re-theme):
+     `neon`  → deep forest green   (fills, primary buttons, dark rules)
+     `lime`  → warm terracotta     (secondary accent fill)
+     `amber` → muted gold          (rare tertiary)
+     `*-text`→ dark warm steps that clear AA on ivory/sand/white
+   Buttons read their colours from the dedicated `primary` / `accent`
+   tokens instead, because a forest fill on a forest ground would be
+   invisible and a terracotta fill cannot carry small light text.
 ------------------------------------------------------------------- */
 @theme {
-  /*
-   * One background for the whole site. Every "at rest" surface resolves
-   * to it, so the page is genuinely uniform. `surface-2` / `panel-2` are
-   * the only lighter step and exist purely for hover and active feedback.
-   */
-  --color-canvas: #101a16;
-  --color-surface: #101a16;
-  --color-surface-2: #17251f;
-  --color-surface-3: #101a16;
-  --color-panel: #101a16;
-  --color-panel-2: #17251f;
+  /* Backgrounds — three grounds, in order of how often they appear. */
+  --color-canvas: #f7f4ed; /* warm ivory — the page */
+  --color-surface: #f7f4ed;
+  --color-surface-2: #ffffff; /* lifted / hover step */
+  --color-surface-3: #e9dfd0; /* soft sand */
+  --color-panel: #ffffff;
+  --color-panel-2: #e9dfd0;
 
-  /* Text on the dark base, by role */
-  --color-ink: #eef5f1; /* headings + strong body */
-  --color-ink-2: #c9dad2; /* sub-headings */
-  --color-body: #adc2b9; /* paragraph copy */
-  --color-muted: #93aaa1; /* captions, meta, labels */
+  /* Deep contrast ground for bands, the footer and the closing CTA. */
+  --color-forest: #173d32;
+  --color-forest-2: #1e4c3e;
+  --color-forest-3: #12312a;
 
-  /*
-   * Hairlines are light green-grey. With one background colour there is no
-   * tonal difference between a card and the page behind it, so the border is
-   * the only thing separating them — it has to carry that on its own.
-   */
-  --color-line: rgba(190, 230, 215, 0.14);
-  --color-line-strong: rgba(190, 230, 215, 0.26);
+  /* Named aliases for the two warm neutrals, so call sites read as
+     intent rather than as a step on a scale. They equal `surface-3`
+     and the pale sage used for soft washes. */
+  --color-sand: #e9dfd0;
+  --color-sage: #dce5d8;
 
-  /*
-   * White cards float on the dark base at 17.8:1. This is the single
-   * biggest contrast jump in the theme and it is deliberate: white is what
-   * makes the hero read as crisp rather than murky.
-   *
-   * Never use `--color-card` for a page background or a large fill behind
-   * long-form text — a white block in a dark page reads as a hole.
-   */
+  /* Text on the light grounds, by role. */
+  --color-ink: #20231f; /* headings + strong body — charcoal */
+  --color-ink-2: #2f362f; /* sub-headings */
+  --color-body: #454d44; /* paragraph copy */
+  --color-muted: #5c6459; /* captions, meta, labels */
+
+  /* Hairlines. Ivory is light, so the rule is a soft charcoal wash. */
+  --color-line: rgba(32, 35, 31, 0.14);
+  --color-line-strong: rgba(32, 35, 31, 0.3);
+
+  /* White cards — the elevated editorial surface. */
   --color-card: #ffffff;
-  --color-card-soft: #f2f9f4;
-  --color-card-line: rgba(20, 90, 68, 0.14);
+  --color-card-soft: #fbf8f2;
+  --color-card-line: rgba(32, 35, 31, 0.11);
 
-  /* The text scale for use ON white cards. Dark, and unrelated to ink. */
-  --color-card-ink: #14291f;
-  --color-card-ink-2: #2a4940;
-  --color-card-body: #3e574d;
-  --color-card-muted: #4d635a;
-  --color-card-neon-text: #126f56;
-  --color-card-lime-text: #456414;
-  --color-card-amber-text: #83530d;
+  /* Text on white cards. Unrelated to the ink scale. */
+  --color-card-ink: #20231f;
+  --color-card-ink-2: #2f362f;
+  --color-card-body: #454d44;
+  --color-card-muted: #5c6459;
+  --color-card-neon-text: #a8552f;
+  --color-card-lime-text: #7a5416;
+  --color-card-amber-text: #7a5416;
 
-  /* Emerald — the interactive layer. Brighter than the light theme's, since
-     #177c5d reads as mud against near-black. Carries dark text, not white. */
-  --color-neon: #2fb188;
-  --color-neon-soft: #4ac39c;
-  --color-neon-dim: #1d8a68;
-  --color-neon-deep: #0d4433;
+  /* Buttons. Separate tokens so a fill is never invisible on its own
+     ground: `primary` sits on ivory, `accent` beside it. `.on-forest`
+     flips both to the light-on-dark steps. */
+  --color-primary: #173d32;
+  --color-primary-hover: #1e4c3e;
+  --color-primary-fg: #f7f4ed;
+  --color-accent: #c96f4a;
+  --color-accent-hover: #b8603d;
+  --color-accent-fg: #20231f;
 
-  /* Lime — reserved for the rarest highlight */
-  --color-lime: #b6e05a;
-  --color-lime-soft: #c8ec84;
+  /* Deep forest green — the trust colour. Fills, rules, active states. */
+  --color-neon: #173d32;
+  --color-neon-soft: #2a5b4c;
+  --color-neon-dim: #12312a;
+  --color-neon-deep: #0c241e;
 
-  /*
-   * Amber — a warm counterpoint. Green on green can only ever be flat;
-   * a single warm hue is what makes the emerald read as a colour rather
-   * than a tint. Used for small status accents, never for body copy and
-   * never as a large fill.
-   */
-  --color-amber: #f0c46b;
-  --color-amber-soft: #f6d89b;
-  --color-amber-deep: #8a5f14;
+  /* Warm terracotta — the emotional accent. */
+  --color-lime: #c96f4a;
+  --color-lime-soft: #d9865f;
 
-  /*
-   * Text-safe steps. On the dark base these are lighter than the fills they
-   * sit beside. All seven dark text roles clear AA against both greens —
-   * worst is muted on the hover step at 6.44:1 — and all seven card text
-   * roles clear AA on both card surfaces, worst 5.72:1.
-   */
-  --color-neon-text: #5fd3ac;
-  --color-lime-text: #c9e87e;
-  --color-amber-text: #f3d093;
+  /* Muted gold — the rarest warm third. */
+  --color-amber: #c08a3e;
+  --color-amber-soft: #d9a85c;
+  --color-amber-deep: #7a5416;
 
-  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  /* Text-safe steps. All five clear AA against ivory (4.5:1),
+     sand and white — worst case is `neon-text` on white at 5.2:1. */
+  --color-neon-text: #a8552f; /* terracotta, for eyebrows + accents */
+  --color-lime-text: #9a4a25;
+  --color-amber-text: #7a5416;
+
+  --font-display: var(--font-display), ui-serif, Georgia, serif;
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-mono), ui-monospace, monospace;
 
-  --radius-xs: 6px;
-  --radius-sm: 10px;
-  --radius-md: 14px;
-  --radius-lg: 18px;
-  --radius-xl: 24px;
+  /* Restrained radii. The brief rules out "excessive rounded
+     rectangles", so nothing structural goes past 12px. */
+  --radius-xs: 3px;
+  --radius-sm: 5px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
 
-  /*
-   * Shadows go black on a dark theme — a green-grey shadow on near-black is
-   * invisible, so depth has to come from real darkness plus the emerald glow.
-   */
-  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
-  --shadow-lift: 0 2px 6px rgba(0, 0, 0, 0.45), 0 16px 32px -14px rgba(0, 0, 0, 0.7);
-  --shadow-pop: 0 4px 10px rgba(0, 0, 0, 0.5), 0 28px 56px -22px rgba(0, 0, 0, 0.8);
-  --shadow-neon: 0 0 0 1px rgba(47, 177, 136, 0.32), 0 8px 22px -8px rgba(47, 177, 136, 0.32);
-  --shadow-neon-lg: 0 0 0 1px rgba(47, 177, 136, 0.42), 0 16px 40px -12px rgba(47, 177, 136, 0.4);
-  --shadow-lime: 0 0 0 1px rgba(182, 224, 90, 0.34), 0 10px 26px -10px rgba(182, 224, 90, 0.4);
+  /* Warm, low-contrast shadows — paper lifting off paper. */
+  --shadow-soft: 0 1px 2px rgba(32, 35, 31, 0.07), 0 1px 3px rgba(32, 35, 31, 0.05);
+  --shadow-lift: 0 2px 6px rgba(32, 35, 31, 0.07), 0 18px 34px -18px rgba(32, 35, 31, 0.3);
+  --shadow-pop: 0 4px 10px rgba(32, 35, 31, 0.09), 0 30px 60px -26px rgba(32, 35, 31, 0.4);
+  --shadow-neon: 0 0 0 1px rgba(23, 61, 50, 0.2), 0 10px 26px -14px rgba(23, 61, 50, 0.42);
+  --shadow-neon-lg: 0 0 0 1px rgba(23, 61, 50, 0.28), 0 18px 42px -16px rgba(23, 61, 50, 0.45);
+  --shadow-lime: 0 0 0 1px rgba(201, 111, 74, 0.3), 0 10px 26px -12px rgba(201, 111, 74, 0.42);
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -136,7 +142,7 @@
 
   body {
     background-color: var(--color-canvas);
-    color: var(--color-ink);
+    color: var(--color-body);
     font-family: var(--font-sans);
     font-synthesis-weight: none;
     text-rendering: optimizeLegibility;
@@ -147,8 +153,9 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    letter-spacing: -0.028em;
+    letter-spacing: -0.018em;
     text-wrap: balance;
+    color: var(--color-ink);
   }
 
   p {
@@ -156,14 +163,14 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-neon);
+    outline: 2px solid var(--color-accent);
     outline-offset: 2px;
-    border-radius: 4px;
+    border-radius: 3px;
   }
 
   ::selection {
-    background-color: var(--color-neon);
-    color: #ffffff;
+    background-color: var(--color-forest);
+    color: var(--color-canvas);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -195,19 +202,19 @@
 }
 
 @utility section-pad {
-  padding-block: 4.5rem;
+  padding-block: 4rem;
   @media (width >= 48rem) {
-    padding-block: 6.5rem;
+    padding-block: 6rem;
   }
   @media (width >= 80rem) {
-    padding-block: 7.5rem;
+    padding-block: 7rem;
   }
 }
 
 @utility container-page {
   width: 100%;
   margin-inline: auto;
-  max-width: 78rem;
+  max-width: 76rem;
   padding-inline: 1.25rem;
   @media (width >= 40rem) {
     padding-inline: 2rem;
@@ -217,20 +224,74 @@
   }
 }
 
+/*
+ * Dark band. Scopes every text, line and fill role at a light-on-dark
+ * value, so shared components (headings, cards, accordions, buttons)
+ * can be dropped into a forest section without being rewritten.
+ * Implemented as a re-pointed set of the same custom properties the
+ * utilities read, which is why `text-ink` inside this wrapper is light
+ * while `text-ink` outside it stays charcoal.
+ */
+@utility on-forest {
+  --color-canvas: #173d32;
+  --color-surface: #173d32;
+  --color-surface-2: #1e4c3e;
+  --color-surface-3: #12312a;
+  --color-panel: #1e4c3e;
+  --color-panel-2: #12312a;
+
+  --color-ink: #f5f1e8;
+  --color-ink-2: #d7ded8;
+  --color-body: #b9c4bc;
+  --color-muted: #98a79d;
+
+  --color-line: rgba(245, 241, 232, 0.18);
+  --color-line-strong: rgba(245, 241, 232, 0.34);
+
+  --color-card: #1e4c3e;
+  --color-card-soft: #1a4438;
+  --color-card-line: rgba(245, 241, 232, 0.15);
+
+  --color-card-ink: #f5f1e8;
+  --color-card-ink-2: #d7ded8;
+  --color-card-body: #b9c4bc;
+  --color-card-muted: #98a79d;
+  --color-card-neon-text: #e7a98c;
+  --color-card-lime-text: #e7a98c;
+  --color-card-amber-text: #e8c48c;
+
+  --color-primary: #e7a98c;
+  --color-primary-hover: #f0bda4;
+  --color-primary-fg: #173d32;
+  --color-accent: #c96f4a;
+  --color-accent-hover: #d9865f;
+  --color-accent-fg: #173d32;
+
+  --color-neon: #e7a98c;
+  --color-neon-soft: #f0bda4;
+  --color-neon-text: #e7a98c;
+  --color-lime: #c96f4a;
+  --color-lime-text: #e7a98c;
+  --color-amber-text: #e8c48c;
+
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.24);
+  --shadow-lift: 0 2px 6px rgba(0, 0, 0, 0.28), 0 18px 34px -18px rgba(0, 0, 0, 0.6);
+  --shadow-neon: 0 0 0 1px rgba(231, 169, 140, 0.3), 0 10px 26px -14px rgba(0, 0, 0, 0.55);
+}
+
 /* ------------------------------------------------------------------
-   Neon + tech visual layer
-   These carry the "techy" read so pages lean on graphics rather than
-   more paragraphs. All motion collapses under prefers-reduced-motion
-   via the base layer rule above.
+   Editorial visual layer
+   Texture, surfaces, depth and motion. All of it collapses under
+   prefers-reduced-motion via the base layer rule above.
 ------------------------------------------------------------------- */
 @layer components {
   /* Section reveal — one shared transition, applied by <Reveal />. */
   .reveal {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(16px);
     transition:
-      opacity 0.7s var(--ease-out-soft),
-      transform 0.7s var(--ease-out-soft);
+      opacity 0.75s var(--ease-out-soft),
+      transform 0.75s var(--ease-out-soft);
     transition-delay: var(--reveal-delay, 0ms);
   }
 
@@ -241,21 +302,28 @@
 
   /* Backgrounds ------------------------------------------------------ */
 
-  /* Faint measurement grid, the base texture of every section. On a dark
-     page this has to be a slightly LIGHTER green — a dark line on a dark
-     surface disappears completely. */
+  /* Faint ruled grid — the base texture of editorial sections. Warm
+     charcoal rather than a glow, so it reads as laid paper, not as
+     a screen. */
   .tech-grid {
     background-image:
-      linear-gradient(to right, rgba(120, 220, 190, 0.055) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(120, 220, 190, 0.055) 1px, transparent 1px);
-    background-size: 64px 64px;
+      linear-gradient(to right, rgba(32, 35, 31, 0.055) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(32, 35, 31, 0.055) 1px, transparent 1px);
+    background-size: 72px 72px;
   }
 
   .tech-grid-fine {
     background-image:
-      linear-gradient(to right, rgba(120, 220, 190, 0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(120, 220, 190, 0.04) 1px, transparent 1px);
-    background-size: 22px 22px;
+      linear-gradient(to right, rgba(32, 35, 31, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(32, 35, 31, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* On a dark ground the rule has to invert or it disappears. */
+  .on-forest .tech-grid {
+    background-image:
+      linear-gradient(to right, rgba(245, 241, 232, 0.07) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(245, 241, 232, 0.07) 1px, transparent 1px);
   }
 
   /* Radial vignette so grid edges fade instead of stopping hard. */
@@ -264,7 +332,7 @@
     mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
   }
 
-  /* Soft coloured bloom, used behind hero and CTA blocks. */
+  /* Soft warm wash, used behind hero and CTA blocks. */
   .glow-orb {
     position: absolute;
     border-radius: 9999px;
@@ -272,15 +340,25 @@
     pointer-events: none;
   }
 
-  /* Horizontal CRT scanlines. Kept very low contrast — a texture, not an
-     effect. Lighter than the surface so it still reads on dark. */
+  /* Paper grain: a whisper of noise so large ivory fields do not read
+     as flat hex. Kept below the threshold where it costs legibility. */
+  .paper-grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    background-image: radial-gradient(rgba(32, 35, 31, 0.05) 0.5px, transparent 0.5px);
+    background-size: 3px 3px;
+  }
+
   .scanlines {
     background-image: repeating-linear-gradient(
       to bottom,
-      rgba(180, 235, 215, 0.02) 0px,
-      rgba(180, 235, 215, 0.02) 1px,
+      rgba(32, 35, 31, 0.022) 0px,
+      rgba(32, 35, 31, 0.022) 1px,
       transparent 1px,
-      transparent 3px
+      transparent 4px
     );
   }
 
@@ -288,8 +366,8 @@
 
   .neon-card {
     position: relative;
-    border: 1px solid var(--color-line);
-    background-color: var(--color-surface);
+    border: 1px solid var(--color-card-line);
+    background-color: var(--color-card);
     border-radius: var(--radius-lg);
   }
 
@@ -304,13 +382,13 @@
 
   .neon-card-hover:hover {
     border-color: var(--color-line-strong);
-    background-color: var(--color-surface-2);
+    background-color: var(--color-card);
     transform: translateY(-3px);
     box-shadow: var(--shadow-lift);
   }
 
-  /* Gradient hairline border via a masked pseudo-element.
-     Cheaper and crisper than a blurred ring at these sizes. */
+  /* Hairline border via a masked pseudo-element: crisper than a blurred
+     ring at these sizes. Used for the terracotta rule on key cards. */
   .neon-edge {
     position: relative;
   }
@@ -323,8 +401,8 @@
     padding: 1px;
     background: linear-gradient(
       140deg,
-      rgba(47, 177, 136, 0.5),
-      rgba(47, 177, 136, 0.16) 35%,
+      rgba(201, 111, 74, 0.55),
+      rgba(201, 111, 74, 0.18) 35%,
       transparent 60%
     );
     -webkit-mask:
@@ -335,36 +413,49 @@
     pointer-events: none;
   }
 
+  /* A single warm rule across the top of a band — an editorial marker. */
+  .rule-top {
+    position: relative;
+  }
+
+  .rule-top::before {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 2px;
+    background: linear-gradient(
+      to right,
+      var(--color-accent),
+      rgba(201, 111, 74, 0.15) 42%,
+      transparent 78%
+    );
+  }
+
   /* Depth ---------------------------------------------------------- */
 
   /*
-   * Pseudo-3D. Real WebGL would be a large dependency and a large
-   * performance cost for a marketing site, so depth is built from layered
-   * box-shadows and a single perspective transform. Cheap, and it holds
-   * up on low-end phones and with reduced motion on.
-   *
-   * On a light theme the "lit top face" is a pale mint inset rather than a
-   * white one — pure white reads as a gap between the card and its edge once
-   * the surface is itself tinted.
+   * Real WebGL would be a large dependency for a marketing site, so depth
+   * is built from layered shadows and a single perspective transform.
+   * On the warm ground the lit top face is a pale ivory inset rather than
+   * white — pure white reads as a gap once the surface is itself tinted.
    */
 
-  /* Raised tile: a pale top highlight plus a soft cast shadow. */
   .depth-1 {
     box-shadow:
-      0 1px 0 0 rgba(240, 252, 245, 0.9) inset,
-      0 1px 2px rgba(0, 0, 0, 0.42),
-      0 10px 22px -14px rgba(0, 0, 0, 0.62);
+      0 1px 0 0 rgba(255, 255, 255, 0.9) inset,
+      0 1px 2px rgba(32, 35, 31, 0.08),
+      0 10px 22px -16px rgba(32, 35, 31, 0.4);
   }
 
   .depth-2 {
     box-shadow:
-      0 1px 0 0 rgba(240, 252, 245, 0.9) inset,
-      0 0 0 1px rgba(190, 230, 215, 0.05),
-      0 2px 4px rgba(0, 0, 0, 0.32),
-      0 20px 42px -20px rgba(0, 0, 0, 0.75);
+      0 1px 0 0 rgba(255, 255, 255, 0.9) inset,
+      0 0 0 1px rgba(32, 35, 31, 0.05),
+      0 2px 4px rgba(32, 35, 31, 0.07),
+      0 22px 44px -24px rgba(32, 35, 31, 0.42);
   }
 
-  /* Floating panel that tilts slightly toward the viewer. */
   .depth-float {
     transform: perspective(1200px) rotateX(4deg) translateZ(0);
     transform-style: preserve-3d;
@@ -387,18 +478,17 @@
   }
 
   .depth-stack::before {
-    transform: translate3d(10px, 12px, 0);
-    background: var(--color-surface-2);
-    opacity: 0.85;
+    transform: translate3d(9px, 11px, 0);
+    background: var(--color-surface-3);
+    opacity: 0.9;
   }
 
   .depth-stack::after {
-    transform: translate3d(20px, 25px, 0);
-    background: var(--color-surface-3);
-    opacity: 0.6;
+    transform: translate3d(18px, 23px, 0);
+    background: var(--color-panel);
+    opacity: 0.75;
   }
 
-  /* Perspective floor for the grid, so it recedes instead of lying flat. */
   .depth-floor {
     perspective: 900px;
   }
@@ -410,23 +500,21 @@
 
   /* Type ------------------------------------------------------------- */
 
-  /*
-   * A neon glow behind text is unreadable on a dark background and just
-   * looks smudged on a light one, so these are now a soft coloured
-   * shadow: enough to make a heading feel lit, not enough to hurt it.
-   */
+  /* Kept for parity with the old theme, but a coloured shadow behind
+     text on ivory only ever looks smudged — these are now almost
+     imperceptible and exist so no legacy call site reads as a glow. */
   .glow-text {
-    text-shadow: 0 1px 12px rgba(47, 177, 136, 0.16);
+    text-shadow: 0 1px 10px rgba(23, 61, 50, 0.08);
   }
 
   .glow-text-lime {
-    text-shadow: 0 1px 12px rgba(182, 224, 90, 0.22);
+    text-shadow: 0 1px 10px rgba(201, 111, 74, 0.14);
   }
 
   .glow-text-strong {
     text-shadow:
-      0 1px 10px rgba(47, 177, 136, 0.2),
-      0 2px 26px rgba(47, 177, 136, 0.12);
+      0 1px 8px rgba(23, 61, 50, 0.1),
+      0 2px 24px rgba(23, 61, 50, 0.06);
   }
 
   /* Blinking block cursor for terminal-style copy. */
@@ -436,8 +524,7 @@
     width: 0.55em;
     height: 1em;
     margin-left: 0.18em;
-    background-color: var(--color-neon);
-    box-shadow: 0 0 8px rgba(47, 177, 136, 0.35);
+    background-color: var(--color-accent);
     vertical-align: text-bottom;
     animation: gy-blink 1.05s steps(2, start) infinite;
   }
@@ -509,9 +596,9 @@
   }
 
   /*
-   * Only the arrow layer rotates; the node circles and labels stay put so the
-   * step names remain readable. A dash-offset crawl on the guide ring does the
-   * same job without needing the whole group to turn.
+   * Only the arrow layer rotates; the node circles and labels stay put so
+   * the step names remain readable. A dash-offset crawl on the guide ring
+   * does the same job without the whole group turning.
    */
   .loop-arrows {
     animation: gy-orbit 30s linear infinite;
@@ -530,15 +617,15 @@
   }
 
   .animate-drift {
-    animation: gy-drift 18s ease-in-out infinite;
+    animation: gy-drift 22s ease-in-out infinite;
   }
 
   .animate-drift-slow {
-    animation: gy-drift 26s ease-in-out infinite reverse;
+    animation: gy-drift 30s ease-in-out infinite reverse;
   }
 
   .animate-marquee {
-    animation: gy-marquee 38s linear infinite;
+    animation: gy-marquee 42s linear infinite;
   }
 
   .animate-arc-in {
@@ -546,9 +633,9 @@
   }
 
   /*
-   * Navbar entrance. The bar drops in and the items follow on a stagger keyed
-   * off `--i`, which Navbar sets per element — so retuning the whole sequence
-   * is one number, not one edit per link.
+   * Navbar entrance. The bar drops in and the items follow on a stagger
+   * keyed off `--i`, which Navbar sets per element — retuning the whole
+   * sequence is one number, not one edit per link.
    */
   @keyframes gy-nav-in {
     from {
@@ -582,8 +669,8 @@
   }
 
   /*
-   * Page transition. Opacity and a small rise only — no horizontal slide, which
-   * would fight the direction the visitor just navigated from.
+   * Page transition. Opacity and a small rise only — no horizontal slide,
+   * which would fight the direction the visitor navigated from.
    */
   @keyframes gy-page-in {
     from {
@@ -601,9 +688,8 @@
   }
 
   /*
-   * The rotating headline phrase. Only the incoming copy animates; the outgoing
-   * one is replaced instantly because it shares the wrapper with the new word.
-   * A masked wipe is enough here — anything longer reads as a wait.
+   * The rotating headline phrase. Only the incoming copy animates; the
+   * outgoing one is replaced instantly because it shares the wrapper.
    */
   @keyframes gy-word-in {
     from {
@@ -620,7 +706,7 @@
     animation: gy-word-in 520ms var(--ease-out-soft) both;
   }
 
-  /* A single light bar travelling down a panel. */
+  /* A single soft bar travelling down a panel. */
   .animate-sweep::after {
     content: "";
     position: absolute;
@@ -629,24 +715,24 @@
     background: linear-gradient(
       to bottom,
       transparent,
-      rgba(47, 177, 136, 0.06),
+      rgba(23, 61, 50, 0.05),
       transparent
     );
-    animation: gy-sweep 7s linear infinite;
+    animation: gy-sweep 8s linear infinite;
     pointer-events: none;
   }
 
   /*
    * Hero panel: a wash that follows the cursor across the card face. The
-   * pointer position arrives as `--px` / `--py` percentage custom properties
-   * set in JS on pointermove, so the gradient re-centres without a re-render.
-   * Purely decorative, so it is hidden from assistive tech and disabled
-   * wherever motion is reduced.
+   * pointer position arrives as `--px` / `--py` custom properties set in
+   * JS on pointermove, so the gradient re-centres without a re-render.
+   * Purely decorative — hidden from assistive tech and disabled wherever
+   * motion is reduced.
    */
   .hero-panel-wash {
     background: radial-gradient(
       340px circle at var(--px, 50%) var(--py, 50%),
-      rgba(47, 177, 136, 0.09),
+      rgba(201, 111, 74, 0.1),
       transparent 70%
     );
     opacity: 0;
@@ -659,15 +745,6 @@
     opacity: 1;
   }
 
-  /*
-   * Keeps the tilted panel from revealing the gap between the 3D face and the
-   * space it is rotated into. A soft emerald bloom under the panel reads as a
-   * glow rather than a hard offset.
-   *
-   * `isolation: isolate` is required, not cosmetic: the bloom sits at
-   * `z-index: -1`, and without a stacking context on the panel it would escape
-   * upward and paint behind the section's own background — invisible.
-   */
   .hero-panel {
     isolation: isolate;
   }
@@ -681,7 +758,7 @@
     border-radius: 999px;
     background: radial-gradient(
       ellipse at center,
-      rgba(47, 177, 136, 0.22),
+      rgba(23, 61, 50, 0.16),
       transparent 70%
     );
     filter: blur(28px);
@@ -690,25 +767,21 @@
   }
 
   /* ----------------------------------------------------------------
-     Hero: bold, energetic layer
-     A panning grid, a parallax field driven by the pointer, floating
-     light motes, a staggered load-in and a shimmering headline. Every
-     piece is decorative and collapses under prefers-reduced-motion.
+     Hero layer: measured editorial motion
+     A slowly panning rule grid, a pointer parallax field, a staggered
+     load-in and one restrained highlight sweep. Everything decorative
+     collapses under prefers-reduced-motion.
   ----------------------------------------------------------------- */
 
-  /* The measurement grid drifts one cell stepped, so the hero feels
-     like it is already running before the visitor does anything. */
   @keyframes gy-grid-pan {
     from {
       background-position: 0 0;
     }
     to {
-      background-position: 64px 64px;
+      background-position: 72px 72px;
     }
   }
 
-  /* A mote of light lifting and fading out. Position/size/timing arrive
-     as custom properties so one keyframe drives the whole field. */
   @keyframes gy-float {
     0% {
       transform: translate3d(0, 0, 0);
@@ -730,8 +803,8 @@
   @keyframes gy-rise-in {
     from {
       opacity: 0;
-      transform: translate3d(0, 28px, 0);
-      filter: blur(10px);
+      transform: translate3d(0, 24px, 0);
+      filter: blur(8px);
     }
     to {
       opacity: 1;
@@ -740,20 +813,19 @@
     }
   }
 
-  /* A light sweeping across the emphasised headline phrase. */
   @keyframes gy-shimmer {
     to {
       background-position: 200% center;
     }
   }
 
-  /* A slow rotation + scale for the aurora behind the hero. */
+  /* A slow rotation + scale for the warm wash behind the hero. */
   @keyframes gy-aurora {
     0% {
       transform: translate3d(-4%, 0, 0) scale(1.05) rotate(0deg);
     }
     50% {
-      transform: translate3d(4%, -3%, 0) scale(1.18) rotate(8deg);
+      transform: translate3d(4%, -3%, 0) scale(1.16) rotate(6deg);
     }
     100% {
       transform: translate3d(-4%, 0, 0) scale(1.05) rotate(0deg);
@@ -761,7 +833,7 @@
   }
 
   .animate-grid-pan {
-    animation: gy-grid-pan 22s linear infinite;
+    animation: gy-grid-pan 26s linear infinite;
   }
 
   .animate-float {
@@ -770,7 +842,7 @@
   }
 
   .animate-aurora {
-    animation: gy-aurora 24s ease-in-out infinite;
+    animation: gy-aurora 30s ease-in-out infinite;
   }
 
   /* Staggered on `--i`, so retuning the entrance is one number. */
@@ -779,22 +851,25 @@
     animation-delay: calc(var(--i, 0) * 95ms);
   }
 
-  /* Gradient headline sweep. `text-shadow` is dropped here on purpose —
-     it smears against a clipped gradient — the glow comes from the mix
-     of neon into lime instead. */
+  /*
+   * Highlight sweep across the emphasised headline phrase: forest →
+   * terracotta → ivory → forest. Deliberately warm rather than neon, and
+   * `text-shadow` is dropped because it smears against a clipped gradient.
+   */
   .shimmer-text {
     background-image: linear-gradient(
       100deg,
-      var(--color-neon-text) 0%,
-      var(--color-lime-text) 28%,
-      #ffffff 50%,
-      var(--color-neon-text) 72%
+      var(--color-forest) 0%,
+      var(--color-accent) 30%,
+      #a8552f 50%,
+      var(--color-accent) 70%,
+      var(--color-forest) 100%
     );
     background-size: 220% auto;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    animation: gy-shimmer 7s linear infinite;
+    animation: gy-shimmer 9s ease-in-out infinite;
   }
 
   /* Parallax layer. Pointer position arrives as unitless --mx/--my, so
@@ -809,13 +884,14 @@
     will-change: transform;
   }
 
-  /* A soft aurora wash sitting behind the grid. Blurred, low-opacity. */
+  /* A soft warm wash sitting behind the grid: terracotta and sand on
+     ivory, blurred and low-opacity. */
   .hero-aurora {
     background:
-      radial-gradient(60% 55% at 22% 18%, rgba(47, 177, 136, 0.22), transparent 70%),
-      radial-gradient(50% 50% at 82% 30%, rgba(182, 224, 90, 0.14), transparent 72%),
-      radial-gradient(55% 60% at 60% 92%, rgba(47, 177, 136, 0.12), transparent 70%);
-    filter: blur(30px);
+      radial-gradient(60% 55% at 20% 16%, rgba(201, 111, 74, 0.16), transparent 70%),
+      radial-gradient(50% 50% at 84% 26%, rgba(23, 61, 50, 0.12), transparent 72%),
+      radial-gradient(55% 60% at 62% 94%, rgba(192, 138, 62, 0.13), transparent 70%);
+    filter: blur(34px);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -847,7 +923,9 @@
     }
 
     .shimmer-text {
-      color: var(--color-neon-text);
+      color: var(--color-forest);
+      -webkit-text-fill-color: var(--color-forest);
+      background: none;
     }
 
     .hero-parallax {

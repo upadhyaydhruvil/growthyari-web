@@ -47,10 +47,10 @@ export function Accordion({
                 onClick={() => setOpenIndex(isOpen ? null : index)}
                 className={cn(
                   "group flex w-full items-start justify-between gap-6 py-5 text-left",
-                  "transition-colors duration-200 hover:text-neon-text sm:py-6",
+                  "transition-colors duration-200 hover:text-accent-hover sm:py-6",
                 )}
               >
-                <span className="text-[17px] font-medium tracking-[-0.015em] text-ink transition-colors group-hover:text-neon-text sm:text-[19px]">
+                <span className="text-[17px] font-medium tracking-[-0.01em] text-ink transition-colors group-hover:text-accent-hover sm:text-[19px]">
                   {item.question}
                 </span>
                 <span
@@ -58,8 +58,8 @@ export function Accordion({
                   className={cn(
                     "mt-0.5 grid size-7 shrink-0 place-items-center rounded-full border transition-all duration-300",
                     isOpen
-                      ? "rotate-45 border-neon bg-neon-dim text-ink"
-                      : "border-line-strong text-ink-2 group-hover:border-neon group-hover:text-neon-text",
+                      ? "rotate-45 border-accent bg-accent text-accent-fg"
+                      : "border-line-strong text-ink-2 group-hover:border-accent group-hover:text-accent-hover",
                   )}
                 >
                   <Plus className="size-3.5" strokeWidth={2.25} />

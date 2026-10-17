@@ -4,16 +4,17 @@ import { cn } from "@/lib/cn";
 export type BadgeTone = "neutral" | "emerald" | "lime" | "solid" | "solidAccent";
 
 /*
- * Tints are low-alpha emerald over a light surface, so the label itself
- * uses the text-safe step rather than the fill — emerald at 10% with
- * emerald fill text would sit around 2:1.
+ * `emerald` is deep forest green and `lime` is warm terracotta — the two
+ * tones kept their names so existing call sites did not have to change.
+ * Tints are low-alpha over the light ground, so the label itself uses the
+ * text-safe step rather than the fill: the fills sit near 2:1 as text.
  */
 const tones: Record<BadgeTone, string> = {
-  neutral: "border-line-strong bg-surface text-ink-2",
-  emerald: "border-neon/20 bg-neon/8 text-neon-text",
-  lime: "border-lime/30 bg-lime/14 text-lime-text",
-  solid: "border-line-strong bg-surface text-ink",
-  solidAccent: "border-neon/30 bg-surface text-neon-text",
+  neutral: "border-line-strong bg-transparent text-ink-2",
+  emerald: "border-primary/20 bg-primary/8 text-primary",
+  lime: "border-accent/30 bg-accent/12 text-accent-hover",
+  solid: "border-transparent bg-forest text-canvas",
+  solidAccent: "border-accent/30 bg-transparent text-accent-hover",
 };
 
 export function Badge({

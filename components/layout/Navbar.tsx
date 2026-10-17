@@ -18,9 +18,9 @@ export function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   /*
-   * `mounted` gates the entrance animation, and it is the more important of the
-   * two states: before it flips, the bar and its items render translated off
-   * the top of the screen at `opacity: 0`.
+   * `mounted` gates the entrance animation, and it is the more important of
+   * the two states: before it flips, the bar and its items render translated
+   * off the top of the screen at `opacity: 0`.
    *
    * So on a page that renders before JS runs — or with JS blocked — the
    * navbar is invisible. That is a real failure mode, not a theoretical one:
@@ -72,11 +72,16 @@ export function Navbar() {
       className={cn(
         "sticky top-0 z-50 w-full",
         "transition-[background-color,box-shadow,border-color,backdrop-filter] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
-        // A hairline of light sweeps across the bar as it mounts.
         mounted ? "navbar-in" : "-translate-y-full opacity-0",
+        /*
+         * At rest the bar is the same ivory as the page, separated only by
+         * the hairline — the page should not look like it has a permanent
+         * chrome strip bolted to it. Once the visitor moves, it becomes an
+         * opaque sheet so text scrolling underneath never collides.
+         */
         scrolled
-          ? "border-b border-line bg-canvas/72 shadow-[0_10px_30px_-24px_rgba(0,0,0,0.9)] backdrop-blur-xl backdrop-saturate-150"
-          : "border-b border-transparent bg-canvas/40 backdrop-blur-sm",
+          ? "border-b border-line bg-canvas/92 shadow-[0_10px_30px_-26px_rgba(32,35,31,0.6)] backdrop-blur-xl"
+          : "border-b border-line/70 bg-canvas/70 backdrop-blur-sm",
       )}
     >
       <a
@@ -97,7 +102,6 @@ export function Navbar() {
           aria-label="GrowthYari — home"
           className={cn(
             "shrink-0 rounded-sm transition-[transform,opacity] duration-200 hover:opacity-80",
-            // The mark drifts forward slightly, like it is leading the page.
             "hover:-translate-y-0.5",
             mounted ? "navbar-item-in" : "opacity-0",
           )}
@@ -107,7 +111,7 @@ export function Navbar() {
         </Link>
 
         <nav aria-label="Main" className="hidden lg:block">
-          <ul className="flex items-center gap-1">
+          <ul className="flex items-center gap-0.5">
             {navLinks.map((link, index) => {
               const active = isActive(link.href);
               return (
@@ -128,25 +132,23 @@ export function Navbar() {
                     {link.href === "/workshops" &&
                     !hasDemoWorkshops &&
                     upcomingWorkshopCount > 0 ? (
-                      <span className="ml-1.5 inline-flex size-[18px] items-center justify-center rounded-full bg-neon/15 text-[10px] font-semibold text-lime-text">
+                      <span className="ml-1.5 inline-flex size-[18px] items-center justify-center rounded-full bg-accent/15 text-[10px] font-semibold text-accent-hover">
                         {upcomingWorkshopCount}
                       </span>
                     ) : null}
                     {/*
-                      * The underline is a glow that grows from the centre on
-                      * hover as well as on the active page, so the bar responds
+                      * A single terracotta rule grows from the centre on hover
+                      * and stays out for the active page, so the bar responds
                       * to the pointer rather than only reporting state.
                       */}
                     <span
                       aria-hidden="true"
                       className={cn(
                         "absolute inset-x-3.5 -bottom-px h-0.5 origin-center rounded-full",
-                        "bg-gradient-to-r from-neon-dim via-neon to-neon-dim",
-                        "transition-[transform,box-shadow,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                        "scale-x-0 opacity-60 group-hover/nav:scale-x-100 group-hover/nav:opacity-100",
-                        active
-                          ? "scale-x-100 opacity-100 shadow-[0_0_12px_rgba(47,177,136,0.55)]"
-                          : "group-hover/nav:shadow-[0_0_12px_rgba(47,177,136,0.45)]",
+                        "bg-accent",
+                        "transition-[transform,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                        "scale-x-0 opacity-0 group-hover/nav:scale-x-100 group-hover/nav:opacity-100",
+                        active ? "scale-x-100 opacity-100" : "",
                       )}
                     />
                   </Link>
@@ -178,7 +180,7 @@ export function Navbar() {
             aria-expanded={menuOpen}
             aria-controls="mobile-nav"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
-            className="group/menu grid size-10 place-items-center rounded-sm border border-line-strong text-ink transition-[color,border-color,transform,background-color] duration-200 hover:-translate-y-0.5 hover:border-neon/50 hover:text-neon-text lg:hidden"
+            className="grid size-10 place-items-center rounded-sm border border-line-strong text-ink transition-[color,border-color,transform,background-color] duration-200 hover:-translate-y-0.5 hover:border-primary hover:bg-primary/6 lg:hidden"
           >
             {/*
               * The two icons cross-fade and rotate apart rather than swapping,
@@ -188,17 +190,13 @@ export function Navbar() {
               <Menu
                 className={cn(
                   "absolute inset-0 size-5 transition-[opacity,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                  menuOpen
-                    ? "rotate-90 scale-75 opacity-0"
-                    : "rotate-0 scale-100 opacity-100",
+                  menuOpen ? "rotate-90 scale-75 opacity-0" : "rotate-0 scale-100 opacity-100",
                 )}
               />
               <X
                 className={cn(
                   "absolute inset-0 size-5 transition-[opacity,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                  menuOpen
-                    ? "rotate-0 scale-100 opacity-100"
-                    : "-rotate-90 scale-75 opacity-0",
+                  menuOpen ? "rotate-0 scale-100 opacity-100" : "-rotate-90 scale-75 opacity-0",
                 )}
               />
             </span>
@@ -207,15 +205,15 @@ export function Navbar() {
       </div>
 
       {/*
-        * Mobile sheet. Kept mounted and animated with grid-template-rows rather
-        * than toggling `hidden`, so it can grow smoothly. `hidden` is kept as
-        * well: it removes the sheet from the accessibility tree and from
-        * sequential focus when closed.
+        * Mobile sheet. Kept mounted and animated with grid-template-rows
+        * rather than toggling `hidden`, so it can grow smoothly. `hidden` is
+        * kept as well: it removes the sheet from the accessibility tree and
+        * from sequential focus when closed.
       */}
       <div
         id="mobile-nav"
         className={cn(
-          "grid overflow-hidden border-t border-line bg-canvas/95 backdrop-blur-xl lg:hidden",
+          "grid overflow-hidden border-t border-line bg-canvas/97 backdrop-blur-xl lg:hidden",
           "transition-[grid-template-rows,opacity] duration-400 ease-[cubic-bezier(0.22,1,0.36,1)]",
           menuOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0",
         )}
@@ -226,55 +224,52 @@ export function Navbar() {
       >
         <div className="overflow-hidden">
           <nav aria-label="Mobile" className="container-page py-4">
-          <ul className="flex flex-col">
-            {navLinks.map((link) => {
-              const active = isActive(link.href);
-              return (
-                <li key={link.href} className="border-b border-line last:border-b-0">
-                  <Link
-                    href={link.href}
-                    aria-current={active ? "page" : undefined}
-                    onClick={() => setMenuOpen(false)}
-                    className={cn(
-                      "group/mnav relative flex items-center justify-between py-3.5 text-[17px] font-medium tracking-[-0.02em] transition-colors",
-                      // The row slides right on hover and dims when inactive, so
-                      // the sheet feels like a list that responds, not a menu
-                      // that is merely rendered.
-                      "pl-3 transition-[padding,opacity,color] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:pl-4",
-                      active ? "text-neon-text" : "text-ink",
-                    )}
-                  >
-                    <span
-                      aria-hidden="true"
+            <ul className="flex flex-col">
+              {navLinks.map((link) => {
+                const active = isActive(link.href);
+                return (
+                  <li key={link.href} className="border-b border-line last:border-b-0">
+                    <Link
+                      href={link.href}
+                      aria-current={active ? "page" : undefined}
+                      onClick={() => setMenuOpen(false)}
                       className={cn(
-                        "absolute inset-y-1 left-0 w-0.5 origin-center rounded-full bg-neon",
-                        "transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                        active
-                          ? "scale-y-100"
-                          : "scale-y-0 group-hover/mnav:scale-y-60",
+                        "group/mnav relative flex items-center justify-between py-3.5 text-[17px] font-medium tracking-[-0.015em] transition-colors",
+                        /* The row slides right on hover and dims when inactive,
+                           so the sheet feels like a list that responds. */
+                        "pl-3 transition-[padding,opacity,color] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:pl-4",
+                        active ? "text-accent-hover" : "text-ink",
                       )}
-                    />
-                    {link.label}
-                    {link.href === "/workshops" &&
-                    !hasDemoWorkshops &&
-                    upcomingWorkshopCount > 0 ? (
-                      <span className="inline-flex size-6 items-center justify-center rounded-full bg-neon/15 text-[11px] font-semibold text-lime-text">
-                        {upcomingWorkshopCount}
-                      </span>
-                    ) : null}
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
-          <ButtonLink
-            href={primaryCta.href}
-            size="lg"
-            className="mt-5 w-full"
-            onClick={() => setMenuOpen(false)}
-          >
-            {primaryCta.label}
-          </ButtonLink>
+                    >
+                      <span
+                        aria-hidden="true"
+                        className={cn(
+                          "absolute inset-y-1 left-0 w-0.5 origin-center rounded-full bg-accent",
+                          "transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                          active ? "scale-y-100" : "scale-y-0 group-hover/mnav:scale-y-60",
+                        )}
+                      />
+                      {link.label}
+                      {link.href === "/workshops" &&
+                      !hasDemoWorkshops &&
+                      upcomingWorkshopCount > 0 ? (
+                        <span className="inline-flex size-6 items-center justify-center rounded-full bg-accent/15 text-[11px] font-semibold text-accent-hover">
+                          {upcomingWorkshopCount}
+                        </span>
+                      ) : null}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+            <ButtonLink
+              href={primaryCta.href}
+              size="lg"
+              className="mt-5 w-full"
+              onClick={() => setMenuOpen(false)}
+            >
+              {primaryCta.label}
+            </ButtonLink>
           </nav>
         </div>
       </div>

@@ -2,43 +2,39 @@ import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
-export type ButtonVariant =
-  | "primary"
-  | "accent"
-  | "outline"
-  | "ghost"
-  | "solid"
-  | "solidGhost";
+export type ButtonVariant = "primary" | "accent" | "outline" | "ghost" | "solid" | "solidGhost";
 export type ButtonSize = "sm" | "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-sm font-medium tracking-[-0.01em] " +
+  "inline-flex items-center justify-center gap-2 rounded-sm font-medium tracking-[-0.005em] " +
   "transition-[background-color,color,border-color,box-shadow,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] " +
   "focus-visible:outline-2 focus-visible:outline-offset-2 active:translate-y-px " +
   "disabled:pointer-events-none disabled:opacity-45";
 
 /*
- * Text colour on a fill is decided by contrast, not by taste. The dark-theme
- * emerald #2fb188 is bright enough to carry the dark canvas text at 6.57:1,
- * where white would only reach 2.5:1 and fail. Lime #b6e05a carries the same
- * dark text at 12.6:1.
+ * Fills come from the dedicated `primary` / `accent` tokens rather than
+ * from `neon` / `lime`, because a colour that works on ivory does not
+ * work on a forest band. `primary` is deep forest on light grounds and
+ * light terracotta inside `.on-forest`; both carry their foreground at
+ * well above 4.5:1, which is why the fg is a token too.
  *
- * So both filled variants use `text-canvas`. If you ever darken `--color-neon`
- * back toward #177c5d, this has to flip to white to stay above 4.5:1.
+ * `accent` is terracotta. It cannot carry small white text (3.6:1), so it
+ * takes charcoal — 5.2:1 — which is also why it reads warmer than a
+ * filled button that is merely a lighter shade of the primary.
  */
 const variants: Record<ButtonVariant, string> = {
   primary:
-    "bg-neon text-canvas shadow-soft hover:bg-neon-soft hover:shadow-neon focus-visible:outline-neon",
+    "bg-primary text-primary-fg shadow-soft hover:bg-primary-hover hover:shadow-neon focus-visible:outline-primary",
   accent:
-    "bg-lime text-canvas shadow-soft hover:bg-lime-soft hover:shadow-lime focus-visible:outline-lime",
+    "bg-accent text-accent-fg shadow-soft hover:bg-accent-hover hover:shadow-lime focus-visible:outline-accent",
   outline:
-    "border border-line-strong bg-transparent text-ink hover:border-neon hover:bg-neon/6 hover:text-neon-text focus-visible:outline-neon",
-  ghost: "text-ink hover:bg-neon/6 hover:text-neon-text focus-visible:outline-neon",
-  /* Sits on the tinted panel band, so it lifts to a raised white card. */
+    "border border-line-strong bg-transparent text-ink hover:border-primary hover:bg-primary/6 hover:text-primary focus-visible:outline-primary",
+  ghost: "text-ink hover:bg-primary/6 hover:text-primary focus-visible:outline-primary",
+  /* Sits on a tinted band, so it lifts to a raised white card. */
   solid:
-    "border border-line-strong bg-surface text-ink shadow-soft hover:bg-surface-2 hover:shadow-neon focus-visible:outline-neon",
+    "border border-line-strong bg-card text-ink shadow-soft hover:bg-surface-2 hover:shadow-neon focus-visible:outline-primary",
   solidGhost:
-    "border border-neon/25 text-neon-text hover:border-neon/50 hover:bg-neon/8 focus-visible:outline-neon",
+    "border border-primary/30 text-primary hover:border-primary/55 hover:bg-primary/8 focus-visible:outline-primary",
 };
 
 const sizes: Record<ButtonSize, string> = {

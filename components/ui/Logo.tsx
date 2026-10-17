@@ -8,9 +8,9 @@ import { cn } from "@/lib/cn";
  * white border and a flat `#2C4736` fill. The artwork has been keyed out
  * and recoloured into transparent PNGs, one per background it is used on.
  *
- * The site is now a dark theme, so the default is `light`. The near-black
- * `dark` variant is kept only for the white cards, where a dark mark is the
- * only thing that reads — against the `#101a16` base it would be invisible.
+ * The site is a light warm-ivory theme, so the default is `dark` — the
+ * near-black mark is the only variant that reads on ivory. `light` is
+ * kept for the forest bands, where a dark mark would disappear.
  */
 const sources = {
   dark: "/brand/growthyari-logo-dark.png",
@@ -23,7 +23,7 @@ export type LogoVariant = keyof typeof sources;
 
 export function LogoMark({
   className,
-  variant = "light",
+  variant = "dark",
 }: {
   className?: string;
   variant?: LogoVariant;
@@ -42,9 +42,14 @@ export function LogoMark({
   );
 }
 
+/**
+ * The wordmark splits "Growth" and "Yari" so the second half carries the
+ * accent. On a light ground that is terracotta; inside a forest band the
+ * same class resolves to the light step.
+ */
 export function Logo({
   className,
-  variant = "light",
+  variant = "dark",
   showWordmark = true,
 }: {
   className?: string;
@@ -55,9 +60,8 @@ export function Logo({
     <span className={cn("inline-flex items-center gap-2.5", className)}>
       <LogoMark variant={variant} />
       {showWordmark ? (
-        <span className="font-display text-[19px] leading-none font-semibold tracking-[-0.03em] text-ink">
-          Growth
-          <span className="text-neon-text">Yari</span>
+        <span className="font-display text-[20px] leading-none font-medium tracking-[-0.02em] text-ink">
+          Growth<span className="text-accent">Yari</span>
         </span>
       ) : null}
     </span>

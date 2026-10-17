@@ -5,14 +5,14 @@ import { navLinks } from "@/data/site";
 
 export default function NotFound() {
   return (
-    <section className="section-pad bg-surface">
+    <section className="section-pad bg-canvas">
       <div className="container-page">
         <div className="mx-auto max-w-lg text-center">
           <Logo className="justify-center" />
-          <p className="mt-10 font-mono text-[12px] tracking-[0.2em] text-lime-text uppercase">
+          <p className="label-xs mt-10 text-accent-hover">
             404
           </p>
-          <h1 className="mt-4 text-[30px] leading-tight font-semibold text-ink sm:text-[36px]">
+          <h1 className="mt-4 font-display text-[32px] leading-tight font-medium tracking-[-0.02em] text-ink sm:text-[40px]">
             That page doesn&apos;t exist.
           </h1>
           <p className="mt-4 text-[15px] leading-7 text-body">
