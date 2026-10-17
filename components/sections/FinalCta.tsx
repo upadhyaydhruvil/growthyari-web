@@ -23,7 +23,7 @@ export function FinalCta() {
         className="glow-orb animate-drift absolute -bottom-24 -left-16 size-96 bg-accent/18"
       />
 
-      <div className="container-page relative py-20 sm:py-28">
+      <div className="container-page relative section-pad">
         <div className="mx-auto max-w-3xl text-center">
           <Badge tone="solidAccent" className="mb-7">
             <PulseDot className="text-accent-hover" />

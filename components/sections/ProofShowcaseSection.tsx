@@ -26,7 +26,7 @@ export function ProofShowcaseSection() {
   return (
     <section aria-labelledby="proof-showcase-heading" className="section-pad relative border-b border-line bg-canvas">
       <div className="container-page relative">
-        <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
+        <div className="grid gap-12 lg:grid-cols-12 lg:items-end lg:gap-16">
           <SectionHeading
             eyebrow={proofShowcaseEyebrow}
             title={<span id="proof-showcase-heading">{proofShowcaseTitle}</span>}

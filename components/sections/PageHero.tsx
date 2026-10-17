@@ -29,7 +29,7 @@ export function PageHero({
       />
 
       <div className="container-page relative">
-        <div className="grid gap-10 py-16 lg:grid-cols-12 lg:items-end lg:gap-16 lg:py-24">
+        <div className="grid gap-12 section-pad lg:grid-cols-12 lg:items-end lg:gap-16">
           <div className="lg:col-span-7">
             {badge ? (
               <Badge tone="emerald" className="mb-6">

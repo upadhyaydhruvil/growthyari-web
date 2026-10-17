@@ -138,6 +138,16 @@
     scroll-behavior: smooth;
     scroll-padding-top: 6rem;
     -webkit-text-size-adjust: 100%;
+    /* Decorative elements bleed past the viewport edge on purpose (glow
+       orbs, corner washes). Without this every one of them produces a
+       horizontal scrollbar on a narrow screen, which shifts the whole
+       page sideways and makes the padding look uneven between mobile
+       and desktop.
+
+       `clip` rather than `hidden`: `hidden` would turn the root into a
+       scroll container and silently break the sticky navbar. `clip`
+       removes the scrollbar while leaving sticky positioning intact. */
+    overflow-x: clip;
   }
 
   body {
@@ -146,6 +156,8 @@
     font-family: var(--font-sans);
     font-synthesis-weight: none;
     text-rendering: optimizeLegibility;
+    /* Belt and braces - some browsers propagate overflow from body only. */
+    overflow-x: clip;
   }
 
   h1,
@@ -832,6 +844,138 @@
     }
   }
 
+  /*
+   * Hero artwork reveal: a small rise, a slight settle-in from just under
+   * full scale, and a fade. `filter` is deliberately avoided — animating a
+   * blur over a 2MB image forces repaints on the compositor thread, and the
+   * motion reads the same without it.
+   */
+  @keyframes gy-visual-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 18px, 0) scale(0.972);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  /* Annotation connectors + their terminal dot: draw the line, then the
+     point lands. Kept to opacity and one transform so four of these
+     running at once cost nothing. */
+  @keyframes gy-connector-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 6px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  /* Journey strip stages: a short staggered lift, no bounce. */
+  @keyframes gy-stage-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 10px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  /* The arrow separators in the journey strip nudge forward once. */
+  @keyframes gy-arrow-nudge {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+    45% {
+      transform: translate3d(4px, 0, 0);
+    }
+  }
+
+  /* --------------------------------------------------------------
+     Hero artwork reveal + annotation/stage entrances.
+     Each takes a `--i` for the stagger, same convention as .hero-in.
+  --------------------------------------------------------------- */
+  .hero-visual-in {
+    animation: gy-visual-in 900ms var(--ease-out-soft) both;
+    animation-delay: calc(var(--i, 0) * 110ms);
+  }
+
+  .hero-anno-in {
+    animation: gy-connector-in 620ms var(--ease-out-soft) both;
+    animation-delay: calc(480ms + var(--i, 0) * 130ms);
+  }
+
+  .hero-stage-in {
+    animation: gy-stage-in 560ms var(--ease-out-soft) both;
+    animation-delay: calc(700ms + var(--i, 0) * 110ms);
+  }
+
+  .hero-arrow-in {
+    animation: gy-arrow-nudge 1.9s ease-in-out both;
+    animation-delay: calc(1100ms + var(--i, 0) * 110ms);
+    animation-iteration-count: 3;
+  }
+
+  /*
+   * Hero palette — scoped to this section only.
+   *
+   * The brief for the hero specifies a warmer ivory, a deeper forest and a
+   * brighter burnt orange than the tokens the rest of the site uses. Rather
+   * than repointing the global tokens — which would re-skin the navbar,
+   * footer and every other section — the same custom properties are
+   * overridden here, so everything inside the hero picks up the new values
+   * and everything outside keeps the old ones. `.hero-editorial` sits on the
+   * <section> so the scope is one class.
+   *
+   * Contrast, checked against #f7f3e9 (L = 0.8975):
+   *   forest  #104c3f  ivory on forest .... 8.9:1   (AA / AAA)
+   *   accent  #d87542  as a fill under charcoal #20231f ... 4.95:1 (AA)
+   *   accent  #d87542  as TEXT ... 2.9:1 — FAILS, so it is never used for
+   *                     text here. Small terracotta text keeps #a8552f
+   *                     (4.73:1, AA), which is the same step the site
+   *                     already ships as `neon-text`.
+   */
+  .hero-editorial {
+    --color-canvas: #f7f3e9;
+    --color-surface: #f7f3e9;
+    --color-surface-2: #fffdfa;
+    --color-surface-3: #e9dfd0;
+
+    --color-forest: #104c3f;
+    --color-forest-2: #0b3a30;
+    --color-forest-3: #082a23;
+    --color-primary: #104c3f;
+    --color-primary-hover: #0b3a30;
+    --color-primary-fg: #f7f3e9;
+    --color-neon: #104c3f;
+
+    --color-accent: #d87542;
+    --color-accent-hover: #c46535;
+    --color-accent-fg: #20231f;
+    --color-lime: #d87542;
+    --color-lime-soft: #e08a5d;
+    --color-neon-text: #a8552f;
+    --color-lime-text: #a8552f;
+
+    /* Charcoal typography — unchanged from the global step. */
+    --color-ink: #20231f;
+    --color-ink-2: #2f362f;
+    --color-body: #454d44;
+    --color-muted: #5c6459;
+
+    /* The aurora wash is tuned to the new palette rather than the old
+       terracotta, or it reads as a muddy overlay on the warmer ground. */
+    --hero-wash-accent: 216, 117, 66;
+    --hero-wash-forest: 16, 76, 63;
+  }
+
   .animate-grid-pan {
     animation: gy-grid-pan 26s linear infinite;
   }
@@ -885,12 +1029,25 @@
   }
 
   /* A soft warm wash sitting behind the grid: terracotta and sand on
-     ivory, blurred and low-opacity. */
+     ivory, blurred and low-opacity. The RGB triplets come from custom
+     properties so `.hero-editorial` can retune them without a second rule. */
   .hero-aurora {
     background:
-      radial-gradient(60% 55% at 20% 16%, rgba(201, 111, 74, 0.16), transparent 70%),
-      radial-gradient(50% 50% at 84% 26%, rgba(23, 61, 50, 0.12), transparent 72%),
-      radial-gradient(55% 60% at 62% 94%, rgba(192, 138, 62, 0.13), transparent 70%);
+      radial-gradient(
+        60% 55% at 20% 16%,
+        rgba(var(--hero-wash-accent, 201, 111, 74), 0.16),
+        transparent 70%
+      ),
+      radial-gradient(
+        50% 50% at 84% 26%,
+        rgba(var(--hero-wash-forest, 23, 61, 50), 0.12),
+        transparent 72%
+      ),
+      radial-gradient(
+        55% 60% at 62% 94%,
+        rgba(192, 138, 62, 0.13),
+        transparent 70%
+      );
     filter: blur(34px);
   }
 
@@ -912,11 +1069,19 @@
     .animate-float,
     .animate-aurora,
     .hero-in,
+    .hero-visual-in,
+    .hero-anno-in,
+    .hero-stage-in,
+    .hero-arrow-in,
     .shimmer-text {
       animation: none;
     }
 
-    .hero-in {
+    .hero-in,
+    .hero-visual-in,
+    .hero-anno-in,
+    .hero-stage-in,
+    .hero-arrow-in {
       opacity: 1;
       filter: none;
       transform: none;

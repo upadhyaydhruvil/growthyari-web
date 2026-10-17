@@ -5,6 +5,7 @@ import { GapSection } from "@/components/sections/GapSection";
 import { Hero } from "@/components/sections/Hero";
 import { JourneySection } from "@/components/sections/JourneySection";
 import { ProgramSection } from "@/components/sections/ProgramSection";
+import { ProofJourneySection } from "@/components/sections/ProofJourneySection";
 import { ProofShowcaseSection } from "@/components/sections/ProofShowcaseSection";
 import { RecognitionSection } from "@/components/sections/RecognitionSection";
 import { StoriesSection } from "@/components/sections/StoriesSection";
@@ -18,13 +19,19 @@ import { WhoForSection } from "@/components/sections/WhoForSection";
  *
  * Sections are lettered in the design brief (A–L). The nav (A) lives in
  * the layout. Everything below alternates ground deliberately:
- * ivory → sand → ivory → forest → ivory → sand → ivory → sand → ivory →
- * sand → ivory → forest, so the page has rhythm instead of one long wash.
+ * ivory → white → sand → ivory → forest → ivory → sand → ivory → sand →
+ * ivory → sand → ivory → forest, so the page has rhythm instead of one
+ * long wash.
+ *
+ * `ProofJourneySection` sits immediately after the hero because the hero
+ * now opens on a story rather than a claim — the section that cashes it
+ * in has to come before anything else can interrupt.
  */
 export default function HomePage() {
   return (
     <>
       <Hero />
+      <ProofJourneySection />
       <RecognitionSection />
       <GapSection />
       <TransformationSection />
