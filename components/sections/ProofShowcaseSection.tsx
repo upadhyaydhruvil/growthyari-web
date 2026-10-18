@@ -1,7 +1,9 @@
+import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import {
   artefactNote,
+  proofShowcaseImage,
   proofShowcaseEyebrow,
   proofShowcaseIntro,
   proofShowcaseTitle,
@@ -10,12 +12,13 @@ import {
 /**
  * Section F — "Not just what you learned. What you can now demonstrate."
  *
- * A short text-only band. The heading carries the distinction between
- * completing an activity and demonstrating a skill; the note beside it
- * makes explicit that nothing on the page is a real learner's work.
+ * A short band: heading, intro, privacy note, one image and the closing
+ * distinction. The artefact card grid that used to sit here was removed —
+ * the section now makes its point in prose and a single picture rather
+ * than nine cards.
  *
- * The artefact card grid that used to sit below this was removed — the
- * section now makes its point in two paragraphs rather than nine cards.
+ * The image sits at its native 3:2 so nothing is cropped, and is marked
+ * `priority` because it lands well above the fold on a long page.
  */
 export function ProofShowcaseSection() {
   return (
@@ -38,6 +41,26 @@ export function ProofShowcaseSection() {
         </div>
 
         <Reveal delay={90}>
+          <figure className="mt-12 overflow-hidden rounded-lg border border-line bg-surface">
+            <div className="relative aspect-[3/2] w-full">
+              <Image
+                src={proofShowcaseImage.src}
+                alt={proofShowcaseImage.alt}
+                fill
+                priority
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 92vw, 71rem"
+                className="object-cover object-center"
+              />
+            </div>
+            {proofShowcaseImage.caption ? (
+              <figcaption className="border-t border-line px-5 py-4 text-[13px] leading-6 text-muted sm:px-6">
+                {proofShowcaseImage.caption}
+              </figcaption>
+            ) : null}
+          </figure>
+        </Reveal>
+
+        <Reveal delay={120}>
           <div className="mt-12 rounded-lg border border-accent/30 bg-surface-3 p-7 sm:p-9">
             <h3 className="font-display text-[22px] leading-snug font-medium text-ink sm:text-[26px]">
               {artefactNote.title}
