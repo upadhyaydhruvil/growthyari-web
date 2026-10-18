@@ -226,13 +226,26 @@
 @utility container-page {
   width: 100%;
   margin-inline: auto;
-  max-width: 76rem;
-  padding-inline: 1.25rem;
+  /*
+   * No max-width. This used to be a hard `76rem` (1216px) cap, which on a
+   * 1920px display left ~352px of empty margin on each side and made every
+   * page read as a narrow column floating in the middle of the screen.
+   *
+   * The gutter is now the only thing that scales: `max(2rem, 3vw)` holds a
+   * readable edge padding on small screens and grows proportionally on wide
+   * ones, so the content box stays ~90-94% of the viewport at every desktop
+   * width instead of stopping dead at 1216px.
+   *
+   * Body copy never stretches with it — SectionHeading caps at `max-w-2xl`
+   * and paragraphs at `max-w-2xl`/`max-w-3xl`, so only grids and cards
+   * actually claim the extra width.
+   */
+  padding-inline: max(1.25rem, 3vw);
   @media (width >= 40rem) {
-    padding-inline: 2rem;
+    padding-inline: max(2rem, 3vw);
   }
   @media (width >= 80rem) {
-    padding-inline: 2.5rem;
+    padding-inline: max(2.5rem, 3vw);
   }
 }
 
