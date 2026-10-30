@@ -40,6 +40,7 @@ export const navLinks = [
   { label: "Why GrowthYari", href: "/why" },
   { label: "How It Works", href: "/how-it-works" },
   { label: "Programs", href: "/programs" },
+  { label: "Assessment", href: "/assessment" },
   { label: "Workshops", href: "/workshops" },
   { label: "About", href: "/about" },
 ] as const;
