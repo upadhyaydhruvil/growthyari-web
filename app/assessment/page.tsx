@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, Clapperboard, FileText, Mic2, PlayCircle, Sparkles } from "lucide-react";
-import { coreSkills, experienceLoop } from "@/data/pilot";
+import { coreSkills } from "@/data/pilot";
 
 export const metadata: Metadata = {
   title: "Career Assessment & Video Portfolio",
